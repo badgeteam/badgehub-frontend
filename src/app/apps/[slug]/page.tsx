@@ -6,6 +6,7 @@ export default async function AppPage({
   params: { slug: string };
 }) {
   const app = await getApp(params.slug);
+
   return (
     <article>
       <h2>{app.name}</h2>
@@ -15,7 +16,7 @@ export default async function AppPage({
       <h3>Supported Devices:</h3>
       <ul>
         {app.devices.map((device) => (
-          <li key="">{JSON.stringify(device, null, 2)}</li>
+          <li key={device.slug}>{JSON.stringify(device, null, 2)}</li>
         ))}
       </ul>
     </article>

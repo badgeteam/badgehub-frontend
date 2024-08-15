@@ -6,9 +6,18 @@ interface BadgehubApp {
   slug: string;
   category_slug: string;
   user_name: string;
+  devices: BadgehubDevice[];
 }
 
-export async function getApps() {
+export async function getApps(options?: {category?: string, device?: string}) {
+  const searchParams = new URLSearchParams(options);
+  const path = searchParams.size == 0 ? '/apps' : `/apps?${searchParams}`;
+  const response = await fetch(DEFAULT_API_ROUTE + path);
+  const data = await response.json();
+  return data as BadgehubApp[];
+}
+
+export async function getAllApps() {
   const response = await fetch(DEFAULT_API_ROUTE + "/apps");
   const data = await response.json();
   return data as BadgehubApp[];
@@ -25,7 +34,7 @@ export async function getApp(slug: string) {
   return data as BadgehubAppDetail;
 }
 
-interface BadgehubCategory {
+export interface BadgehubCategory {
   name: string;
   slug: string;
 }
@@ -34,4 +43,15 @@ export async function getCategories() {
   const response = await fetch(DEFAULT_API_ROUTE + "/categories");
   const data = await response.json();
   return data as BadgehubCategory[];
+}
+
+export interface BadgehubDevice {
+  name: string;
+  slug: string;
+}
+
+export async function getDevices() {
+  const response = await fetch(DEFAULT_API_ROUTE + "/devices");
+  const data = await response.json();
+  return data as BadgehubDevice[];
 }
