@@ -9,7 +9,7 @@ interface BadgehubApp {
   devices: BadgehubDevice[];
 }
 
-export async function getApps(category: string, device: string) {
+export async function getApps(category?: string, device?: string) {
 
   let path = "/apps";
 
