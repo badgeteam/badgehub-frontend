@@ -10,7 +10,7 @@ export interface SearchParams {
 
 export default async function Listing({searchParams} : { searchParams: Partial<SearchParams> }) {
     const [apps, categories, devices]
-        = await Promise.all([getApps(searchParams.category || "", searchParams.device || ""), getCategories(), getDevices()])
+        = await Promise.all([getApps(searchParams), getCategories(), getDevices()])
 
     return (
         <>

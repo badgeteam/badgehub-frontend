@@ -9,22 +9,9 @@ interface BadgehubApp {
   devices: BadgehubDevice[];
 }
 
-export async function getApps(category: string, device: string) {
-
-  let path = "/apps";
-
-  const searchParams = new URLSearchParams();
-  if (category) {
-    searchParams.set("category", category);
-  }
-  if (device) {
-    searchParams.set("device", device);
-  }
-
-  if (category || device) {
-    path += `?${searchParams}`;
-  }
-
+export async function getApps(options?: {category?: string, device?: string}) {
+  const searchParams = new URLSearchParams(options);
+  const path = searchParams.size == 0 ? '/apps' : `/apps?${searchParams}`;
   const response = await fetch(DEFAULT_API_ROUTE + path);
   const data = await response.json();
   return data as BadgehubApp[];
