@@ -1,11 +1,11 @@
 "use client";
 
 import styles from "@/app/apps/apps.module.css";
-import {BadgehubCategory, BadgehubDevice} from "@/badgehub-api-client";
 import {useRef} from "react";
 import {useSearchParams, useRouter} from "next/navigation";
+import {Category, Device} from "@/badgehub-api-client/generated/models";
 
-export default function Filter ({categories, devices}: {categories: BadgehubCategory[], devices: BadgehubDevice[]}) {
+export default function Filter ({categories, devices}: {categories: Category[], devices: Device[]}) {
     const router = useRouter();
     const params = useSearchParams();
 
