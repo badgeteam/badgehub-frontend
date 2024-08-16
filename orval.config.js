@@ -11,7 +11,7 @@ export default defineConfig({
         },
 
         input: {
-            target: 'src/badgehub-api-client/swagger.json',
+            target: 'https://raw.githubusercontent.com/badgeteam/badgehub-api/master/public/swagger.json',
         },
     },
 });

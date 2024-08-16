@@ -14,8 +14,7 @@ npm run dev
 
 Make sure the swagger file is always up to date.
 
-When the API in `badgehub-api` has changed, copy the [swagger.json](https://github.com/badgeteam/badgehub-api/blob/master/public/swagger.json) file
-to `src/badgehub-api-client`. To generate code from this file, run
+When the API in `badgehub-api` has changed, synchronize by running
 
 ```bash
 npm run swagger
