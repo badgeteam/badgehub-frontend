@@ -1,7 +1,7 @@
-import {getApps, getCategories, getDevices} from "@/badgehub-api-client";
 import Link from "next/link";
 import styles from "./apps.module.css";
 import Filter from "@/app/apps/filter";
+import {getApps, getCategories, getDevices} from "@/badgehub-api-client/generated/swagger/default/default";
 
 export interface SearchParams {
     category: string;
@@ -14,9 +14,9 @@ export default async function Listing({searchParams} : { searchParams: Partial<S
 
     return (
         <>
-            <Filter categories={categories} devices={devices}/>
+            <Filter categories={categories.data} devices={devices.data}/>
 
-            {apps.map((app) => (
+            {apps.data.map((app) => (
                 <article className={styles.appCard} key={app.slug}>
                     <Link href={`/apps/${app.slug}`}>
                         <h2>{app.name}</h2>
