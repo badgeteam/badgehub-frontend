@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./apps.module.css";
-import Filter from "@/app/apps/filter";
 import {getApps, getCategories, getDevices} from "@/badgehub-api-client/generated/swagger/public/public";
+import {Filter} from "@/components/Filter";
 
 export interface SearchParams {
     category: string;

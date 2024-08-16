@@ -5,7 +5,7 @@ import {useRef} from "react";
 import {useSearchParams, useRouter} from "next/navigation";
 import {Category, Device} from "@/badgehub-api-client/generated/models";
 
-export default function Filter ({categories, devices}: {categories: Category[], devices: Device[]}) {
+export function Filter({categories, devices}: {categories: Category[], devices: Device[]}) {
     const router = useRouter();
     const params = useSearchParams();
 
