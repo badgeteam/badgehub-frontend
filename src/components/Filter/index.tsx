@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/app/apps/apps.module.css";
+import styles from "./Filter.module.css";
 import {useRef} from "react";
 import {useSearchParams, useRouter} from "next/navigation";
 import {Category, Device} from "@/badgehub-api-client/generated/models";

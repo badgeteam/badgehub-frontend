@@ -1,0 +1,5 @@
+.appFilter {
+  display: flex;
+  margin: 20px 0;
+  gap: 16px;
+}
