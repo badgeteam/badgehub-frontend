@@ -7,7 +7,7 @@ export default defineConfig({
       target: "src/badgehub-api-client/generated/swagger",
       schemas: "src/badgehub-api-client/generated/models",
       client: "fetch",
-      baseUrl: "http://localhost:8001",
+      baseUrl: process.env.BADGEHUB_API_BASEURL || "http://localhost:8001",
     },
 
     input: {
