@@ -24,7 +24,7 @@ export type getDevicesResponse = {
 export const getGetDevicesUrl = () => {
 
 
-  return `http://localhost:8001/api/v3/devices`
+  return `https://api-staging.badgehub.nl/api/v3/devices`
 }
 
 export const getDevices = async ( options?: RequestInit): Promise<getDevicesResponse> => {
@@ -55,7 +55,7 @@ export type getCategoriesResponse = {
 export const getGetCategoriesUrl = () => {
 
 
-  return `http://localhost:8001/api/v3/categories`
+  return `https://api-staging.badgehub.nl/api/v3/categories`
 }
 
 export const getCategories = async ( options?: RequestInit): Promise<getCategoriesResponse> => {
@@ -95,7 +95,7 @@ export const getGetAppsUrl = (params?: GetAppsParams,) => {
     }
   });
 
-  return normalizedParams.size ? `http://localhost:8001/api/v3/apps?${normalizedParams.toString()}` : `http://localhost:8001/api/v3/apps`
+  return normalizedParams.size ? `https://api-staging.badgehub.nl/api/v3/apps?${normalizedParams.toString()}` : `https://api-staging.badgehub.nl/api/v3/apps`
 }
 
 export const getApps = async (params?: GetAppsParams, options?: RequestInit): Promise<getAppsResponse> => {
@@ -126,7 +126,7 @@ export type getAppDetailsResponse = {
 export const getGetAppDetailsUrl = (slug: string,) => {
 
 
-  return `http://localhost:8001/api/v3/apps/${slug}`
+  return `https://api-staging.badgehub.nl/api/v3/apps/${slug}`
 }
 
 export const getAppDetails = async (slug: string, options?: RequestInit): Promise<getAppDetailsResponse> => {
