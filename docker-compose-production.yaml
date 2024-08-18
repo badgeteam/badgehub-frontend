@@ -1,0 +1,6 @@
+services:
+  website:
+    build: .
+    ports:
+      - "8083:3000"
+    restart: always
