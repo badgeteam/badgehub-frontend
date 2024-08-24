@@ -6,6 +6,8 @@ services:
     restart: always
     env_file:
       - ".env.prod"
+    networks:
+      - badgehub_network
 
 networks:
   badgehub_network:
