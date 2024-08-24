@@ -1,5 +1,5 @@
 services:
-  website:
+  badgehub-frontend:
     build: .
     ports:
       - "8003:3000"
