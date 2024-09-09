@@ -1,17 +1,20 @@
 "use client"
 import {SessionProvider} from "next-auth/react"
+import {LoginButton} from "@/components/LoginButton";
 
 export interface SearchParams {
-  category: string;
-  device: string;
+    category: string;
+    device: string;
 }
 
-export default function Listing(props: any) {
-  console.log('props', props);
+export default function Listing({session}: any) {
+    console.log('props.session', session);
 
-  return (
-      <SessionProvider session={props.session}>
-        <h1>Account</h1>
-      </SessionProvider>
-  );
+    return (
+        <SessionProvider session={session}>
+            <h1>Account</h1>
+
+            <LoginButton/>
+        </SessionProvider>
+    );
 }
