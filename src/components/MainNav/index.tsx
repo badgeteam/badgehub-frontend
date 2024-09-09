@@ -13,6 +13,12 @@ export function MainNav() {
       <Link href={"/devices"}>
         <h1>Devices</h1>
       </Link>
+        <Link href={"/login"}>
+            <h1>Login</h1>
+        </Link>
+        <Link href={"/account"}>
+            <h1>Account</h1>
+        </Link>
     </nav>
   );
 }

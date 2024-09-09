@@ -6,6 +6,7 @@ import {
   getDevices,
 } from "@/badgehub-api-client/generated/swagger/public/public";
 import { Filter } from "@/components/Filter";
+import { SessionProvider } from "next-auth/react"
 
 export interface SearchParams {
   category: string;
