@@ -1,12 +1,13 @@
 import NextAuth from "next-auth"
-import GithubProvider from "next-auth/providers/github"
+import KeycloakProvider from "next-auth/providers/keycloak";
 
 const handler = NextAuth({
     // Configure one or more authentication providers
     providers: [
-        GithubProvider({
-            clientId: "Ov23liee9e0NlA0MrTis",
-            clientSecret: "xxxxxxxxxxxxxxxx77511c935739cffdd6be094a",
+        KeycloakProvider({
+            clientId: process.env.KEYCLOAK_ID,
+            clientSecret: process.env.KEYCLOAK_SECRET,
+            issuer: process.env.KEYCLOAK_ISSUER,
         })
     ], // ...add more providers here
     callbacks: {
