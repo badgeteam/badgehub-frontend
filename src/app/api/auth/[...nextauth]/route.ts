@@ -22,8 +22,17 @@ const handler = NextAuth({
             // Send properties to the client, like an access_token from a provider.
             (session as any).accessToken = token.accessToken
             return session
-        }
-    }
+        },
+        async signIn({ account, profile }) {
+            if (account?.provider === "keycloak") {
+                return true;
+            }
+            return false;
+        },
+    },
+    pages: {
+        signIn: "/signin",
+    },
 })
 
 export {handler as GET, handler as POST}
