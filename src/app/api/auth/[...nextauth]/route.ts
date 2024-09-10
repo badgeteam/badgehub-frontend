@@ -5,8 +5,8 @@ const handler = NextAuth({
     // Configure one or more authentication providers
     providers: [
         KeycloakProvider({
-            clientId: process.env.KEYCLOAK_ID,
-            clientSecret: process.env.KEYCLOAK_SECRET,
+            clientId: process.env.KEYCLOAK_ID!,
+            clientSecret: process.env.KEYCLOAK_SECRET!,
             issuer: process.env.KEYCLOAK_ISSUER,
         })
     ], // ...add more providers here
@@ -20,7 +20,7 @@ const handler = NextAuth({
         },
         async session({ session, token, user }) {
             // Send properties to the client, like an access_token from a provider.
-            session.accessToken = token.accessToken
+            (session as any).accessToken = token.accessToken
             return session
         }
     }

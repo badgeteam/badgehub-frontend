@@ -1,0 +1,12 @@
+.button {
+  max-width: 80px;
+  padding: 2px 5px;
+}
+
+.container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
