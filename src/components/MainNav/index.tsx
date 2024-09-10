@@ -7,12 +7,6 @@ export function MainNav() {
             <Link href={"/apps"}>
                 <h1>Apps</h1>
             </Link>
-            <Link href={"/categories"}>
-                <h1>Categories</h1>
-            </Link>
-            <Link href={"/devices"}>
-                <h1>Devices</h1>
-            </Link>
             <Link href={"/account"}>
                 <h1>Account</h1>
             </Link>
