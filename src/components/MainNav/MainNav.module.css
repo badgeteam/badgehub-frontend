@@ -3,3 +3,7 @@
   flex-direction: row;
   gap: 18px;
 }
+
+.currentLink {
+  border-bottom: 4px solid currentColor;
+}
