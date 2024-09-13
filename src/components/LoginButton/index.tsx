@@ -4,7 +4,7 @@ import styles from "./LoginButton.module.css";
 export function LoginButton() {
     const {data: session, status} = useSession();
 
-    let html = <></>;
+    let html;
 
     switch (status) {
         case "loading":
