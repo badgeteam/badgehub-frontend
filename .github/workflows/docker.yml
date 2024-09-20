@@ -57,7 +57,7 @@ jobs:
   deploy:
     runs-on: ubuntu-24.04
     needs: build-and-push
-    environment: test-frontend-zminec
+    environment: badger-servers
     env:
       DOCKER_TAG: ${{ needs.build-and-push.outputs.image_sha }}  # Pass the SHA to deploy
     steps:
