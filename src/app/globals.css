@@ -104,6 +104,10 @@ body > .brand {
   margin: 18px auto 24px auto;
 }
 
+body > .brand {
+  position: relative;
+}
+
 a {
   color: inherit;
   text-decoration: none;

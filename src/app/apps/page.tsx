@@ -1,43 +1,34 @@
-import Link from "next/link";
-import styles from "./apps.module.css";
+"use client"
+
+import {AppList} from "@/components/AppList";
+import {SessionProvider} from "next-auth/react";
+import {LoginButton} from "@/components/LoginButton";
+import {useEffect, useState} from "react";
 import {
-  getApps,
-  getCategories,
-  getDevices,
+    getAppsResponse,
+    getCategoriesResponse,
+    getDevicesResponse
 } from "@/badgehub-api-client/generated/swagger/public/public";
-import { Filter } from "@/components/Filter";
+import {getAppData} from "../actions";
 
 export interface SearchParams {
-  category: string;
-  device: string;
+    category: string;
+    device: string;
 }
 
-export default async function Listing({
-  searchParams,
-}: {
-  searchParams: Partial<SearchParams>;
+export default function Listing({ searchParams }: {
+    searchParams: Partial<SearchParams>;
 }) {
-  const [apps, categories, devices] = await Promise.all([
-    getApps(searchParams),
-    getCategories(),
-    getDevices(),
-  ]);
+    const [data, setData] = useState<[getAppsResponse, getCategoriesResponse, getDevicesResponse] | null>(null);
 
-  return (
-    <>
-      <Filter categories={categories.data} devices={devices.data} />
+    useEffect(() => {
+        getAppData(searchParams).then((data) => setData(data));
+    }, [searchParams]);
 
-      {apps.data.map((app) => (
-        <article className={styles.appCard} key={app.slug}>
-          <Link href={`/apps/${app.slug}`}>
-            <h2>{app.name}</h2>
-          </Link>
-          <Link href={`/categories/${app.category_slug}`}>
-            {app.category_slug}
-          </Link>
-          <p>{app.user_name}</p>
-        </article>
-      ))}
-    </>
-  );
+    return (
+        <SessionProvider>
+            <LoginButton/>
+            {data ? <AppList data={data}/> : <p>Loading new data...</p>}
+        </SessionProvider>
+    );
 }

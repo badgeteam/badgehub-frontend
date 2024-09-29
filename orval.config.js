@@ -1,7 +1,10 @@
 import { defineConfig } from "orval";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default defineConfig({
-  petstore: {
+  badgehub: {
     output: {
       mode: "tags-split",
       target: "src/badgehub-api-client/generated/swagger",
