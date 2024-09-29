@@ -1,11 +1,7 @@
 import Link from "next/link";
 import styles from "./AppList.module.css";
-import {
-    getApps,
-    getCategories,
-    getDevices,
-} from "@/badgehub-api-client/generated/swagger/public/public";
 import { Filter } from "@/components/Filter";
+import {fetchAppData} from "@/app/lib/fetch";
 
 export interface SearchParams {
     category: string;
@@ -18,12 +14,7 @@ export async function AppList({
     searchParams: Partial<SearchParams>;
 }) {
 
-
-    const [apps, categories, devices] = await Promise.all([
-        getApps(searchParams),
-        getCategories(),
-        getDevices(),
-    ]);
+    const [apps, categories, devices] = await fetchAppData(searchParams);
 
     return (
         <>
