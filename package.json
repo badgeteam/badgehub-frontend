@@ -11,6 +11,7 @@
     "swagger": "orval orval --config orval.config.js"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "next": "14.2.5",
     "next-auth": "^4.24.7",
     "react": "^18",
