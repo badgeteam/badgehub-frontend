@@ -12,6 +12,7 @@ import type {
   Device,
   GetAppsParams
 } from '../../models'
+import { customFetch } from '../../../../custom-fetch';
 
 /**
  * Get list of devices (badges)
@@ -29,19 +30,14 @@ export const getGetDevicesUrl = () => {
 
 export const getDevices = async ( options?: RequestInit): Promise<getDevicesResponse> => {
   
-  const res = await fetch(getGetDevicesUrl(),
+  return customFetch<Promise<getDevicesResponse>>(getGetDevicesUrl(),
   {      
     ...options,
     method: 'GET'
     
     
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -60,19 +56,14 @@ export const getGetCategoriesUrl = () => {
 
 export const getCategories = async ( options?: RequestInit): Promise<getCategoriesResponse> => {
   
-  const res = await fetch(getGetCategoriesUrl(),
+  return customFetch<Promise<getCategoriesResponse>>(getGetCategoriesUrl(),
   {      
     ...options,
     method: 'GET'
     
     
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -100,19 +91,14 @@ export const getGetAppsUrl = (params?: GetAppsParams,) => {
 
 export const getApps = async (params?: GetAppsParams, options?: RequestInit): Promise<getAppsResponse> => {
   
-  const res = await fetch(getGetAppsUrl(params),
+  return customFetch<Promise<getAppsResponse>>(getGetAppsUrl(params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -131,18 +117,13 @@ export const getGetAppDetailsUrl = (slug: string,) => {
 
 export const getAppDetails = async (slug: string, options?: RequestInit): Promise<getAppDetailsResponse> => {
   
-  const res = await fetch(getGetAppDetailsUrl(slug),
+  return customFetch<Promise<getAppDetailsResponse>>(getGetAppDetailsUrl(slug),
   {      
     ...options,
     method: 'GET'
     
     
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
