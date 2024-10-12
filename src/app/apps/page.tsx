@@ -20,20 +20,19 @@ export default function Listing({ searchParams }: {
     searchParams: Partial<SearchParams>;
 }) {
     const {data: session, status} = useSession();
+    const [data, setData] = useState<[getAppsResponse, getCategoriesResponse, getDevicesResponse] | null>(null);
 
     const token = (session as any)?.accessToken;
 
-    console.log("### Listing", (session as any)?.accessToken);
+    // console.log("### Listing", (session as any)?.accessToken);
+
+    // TODO: rewrite
+    // TODO: first self sign?
     setToken(token);
 
-    const [data, setData] = useState<[getAppsResponse, getCategoriesResponse, getDevicesResponse] | null>(null);
-
     useEffect(() => {
-        (async () => {
-            // await setToken((session as any)?.accessToken);
-            getAppData(searchParams).then((data) => setData(data));
-        })();
-    }, [searchParams, token]);
+        getAppData(searchParams).then((data) => setData(data));
+    }, [searchParams]);
 
     return (
         <>
