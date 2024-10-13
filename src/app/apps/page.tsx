@@ -19,20 +19,22 @@ export interface SearchParams {
 export default function Listing({ searchParams }: {
     searchParams: Partial<SearchParams>;
 }) {
-    const {data: session, status} = useSession();
+    const {data: session} = useSession();
     const [data, setData] = useState<[getAppsResponse, getCategoriesResponse, getDevicesResponse] | null>(null);
 
-    const token = (session as any)?.accessToken;
-
-    // console.log("### Listing", (session as any)?.accessToken);
-
-    // TODO: rewrite
-    // TODO: first self sign?
-    setToken(token);
-
     useEffect(() => {
-        getAppData(searchParams).then((data) => setData(data));
-    }, [searchParams]);
+        async function getData() {
+            const token = (session as any)?.accessToken;
+            console.log("### token", `${token.substring(0, 10)}...`);
+            if (token) {
+                await setToken(token);
+            }
+            const data = await getAppData(searchParams);
+            setData(data);
+        }
+
+        getData();
+    }, [searchParams, session]);
 
     return (
         <>
