@@ -1,7 +1,17 @@
-import { useSession, signIn, signOut } from "next-auth/react";
+"use client";
+
+import { useSession, signIn, signOut, SessionProvider } from "next-auth/react";
 import styles from "./LoginButton.module.css";
 
 export function LoginButton() {
+  return (
+    <SessionProvider>
+      <LoginButtonInternal />
+    </SessionProvider>
+  );
+}
+
+export function LoginButtonInternal() {
   const { data: session, status } = useSession();
 
   let html;
