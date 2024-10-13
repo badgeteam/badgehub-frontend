@@ -9,7 +9,7 @@ jobs:
   build-and-push:
     runs-on: ubuntu-24.04
     outputs:
-      image_sha: ${{ steps.determine-tag.outputs.image_sha }}  # Output the SHA for deploy
+      image_sha: ${{ steps.determine-tag.outputs.image_sha }} # Output the SHA for deploy
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.7
@@ -60,7 +60,7 @@ jobs:
     needs: build-and-push
     environment: badger-servers
     env:
-      DOCKER_TAG: ${{ needs.build-and-push.outputs.image_sha }}  # Pass the SHA to deploy
+      DOCKER_TAG: ${{ needs.build-and-push.outputs.image_sha }} # Pass the SHA to deploy
     steps:
       - name: Deploy to server
         uses: garygrossgarten/github-action-ssh@0.8.0
