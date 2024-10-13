@@ -36,3 +36,4 @@ jobs:
         with:
           prettier: true
           eslint: true
+          tsc: true
