@@ -1,22 +1,6 @@
-<<<<<<< HEAD
-"use client";
-
-import { AppList } from "@/components/AppList";
-import { SessionProvider } from "next-auth/react";
-import { LoginButton } from "@/components/LoginButton";
-import { useEffect, useState } from "react";
-||||||| parent of 4ace4de (Render the app listing on the server)
-"use client"
-
-import {AppList} from "@/components/AppList";
-import {SessionProvider} from "next-auth/react";
-import {LoginButton} from "@/components/LoginButton";
-import {useEffect, useState} from "react";
-=======
 import { AppList } from "@/components/AppList";
 import { LoginButton } from "@/components/LoginButton";
 import { useEffect, useState } from "react";
->>>>>>> 4ace4de (Render the app listing on the server)
 import {
   getAppsResponse,
   getCategoriesResponse,
