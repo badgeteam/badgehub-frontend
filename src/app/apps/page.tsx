@@ -38,7 +38,7 @@ export default async function Listing({
   return (
     <>
       <LoginButton />
-      {data ? <AppList data={data} /> : <p>Loading new data...</p>}
+      <AppList data={data} />
     </>
   );
 }
