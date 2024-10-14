@@ -1,11 +1,5 @@
 import { AppList } from "@/components/AppList";
 import { LoginButton } from "@/components/LoginButton";
-import { useEffect, useState } from "react";
-import {
-  getAppsResponse,
-  getCategoriesResponse,
-  getDevicesResponse,
-} from "@/badgehub-api-client/generated/swagger/public/public";
 import { getAppData } from "../actions";
 
 export interface SearchParams {
