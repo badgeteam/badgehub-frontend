@@ -3,3 +3,4 @@ build
 coverage
 node_modules
 src/badgehub-api-client/generated
+.next

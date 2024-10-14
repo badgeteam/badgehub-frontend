@@ -1,7 +1,7 @@
-import { LayoutProps } from "../../../.next/types/app/layout";
+import { ReactNode } from "react";
 import styles from "./layout.module.css";
 
-export default function AppsListingLayout(props: LayoutProps) {
+export default function AppsListingLayout(props: { children: ReactNode }) {
   return (
     <main>
       <h1 className={styles.title}>Apps</h1>
