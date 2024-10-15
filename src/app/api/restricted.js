@@ -15,4 +15,4 @@ export default async function restricted(req, res) {
         "You must be signed in to view the protected content on this page.",
     });
   }
-};
+}
