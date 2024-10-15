@@ -1,29 +1,43 @@
-import {useSession, signIn, signOut} from "next-auth/react"
+"use client";
+
+import { useSession, signIn, signOut, SessionProvider } from "next-auth/react";
 import styles from "./LoginButton.module.css";
 
 export function LoginButton() {
-    const {data: session, status} = useSession();
+  return (
+    <SessionProvider>
+      <LoginButtonInternal />
+    </SessionProvider>
+  );
+}
 
-    let html;
+export function LoginButtonInternal() {
+  const { data: session, status } = useSession();
 
-    switch (status) {
-        case "loading":
-            html = <p>...</p>;
-            break;
-        case "unauthenticated":
-            html = <button className={styles.button} onClick={() => signIn()}>Sign in</button>;
-            break;
-        case "authenticated":
-            html = <>
-                {session?.user?.email}
-                <button className={styles.button} onClick={() => signOut()}>Sign out</button>
-            </>
-            break;
-    }
+  let html;
 
-    return (
-        <div className={styles.container}>
-            {html}
-        </div>
-    )
+  switch (status) {
+    case "loading":
+      html = <p>...</p>;
+      break;
+    case "unauthenticated":
+      html = (
+        <button className={styles.button} onClick={() => signIn()}>
+          Sign in
+        </button>
+      );
+      break;
+    case "authenticated":
+      html = (
+        <>
+          {session?.user?.email}
+          <button className={styles.button} onClick={() => signOut()}>
+            Sign out
+          </button>
+        </>
+      );
+      break;
+  }
+
+  return <div className={styles.container}>{html}</div>;
 }
