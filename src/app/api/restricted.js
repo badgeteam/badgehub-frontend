@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth/[...nextauth]";
 
-export default async function restricted(req, res) {
+export default async function RestrictedPage(req, res) {
   const session = await getServerSession(req, res, authOptions);
 
   if (session) {
