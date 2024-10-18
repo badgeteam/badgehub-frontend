@@ -1,22 +1,26 @@
-import {getToken} from "@/app/actions";
+"use server";
+
+import { getToken } from "@/app/actions";
 
 export const customFetch = async <T>(
-    url: string,
-    options: RequestInit,
+  url: string,
+  options: RequestInit,
 ): Promise<T> => {
+  const token = await getToken();
 
-    const token = await getToken();
+  const customOptions: RequestInit = {
+    ...options,
+    headers: [["Authorization", `Bearer ${token}`]],
+  };
 
-    console.log('### customFetch token', token);
+  console.log("customFetch url", url);
 
-    const customOptions: RequestInit = {
-        ...options,
-        headers: [["Authorization", `Bearer ${token}`]],
-    };
+  const request = new Request(url, customOptions);
 
-    const request = new Request(url, customOptions);
-    const response = await fetch(request);
-    const data = await response.json();
+  console.log("customFetch request", request);
 
-    return { status: response.status, data } as T;
+  const response = await fetch(request);
+  const data = await response.json();
+
+  return { status: response.status, data } as T;
 };

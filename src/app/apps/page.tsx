@@ -29,12 +29,14 @@ export default function Listing({
   useEffect(() => {
     async function getData() {
       const token = (session as any)?.accessToken;
-      console.log("### token", `${token.substring(0, 10)}...`);
+      console.log("### token", `${token?.substring(0, 10)}...`);
       if (token) {
         await setToken(token);
       }
-      const data = await getAppData(searchParams);
-      setData(data);
+      if (token) {
+        const data = await getAppData(searchParams);
+        setData(data);
+      }
     }
 
     getData();

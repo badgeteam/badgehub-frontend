@@ -10,6 +10,7 @@ import { GetAppsParams } from "@/badgehub-api-client/generated/models";
 let token = "";
 
 export async function getAppData(searchParams: GetAppsParams) {
+  console.log("getAppData searchParams", searchParams);
   return Promise.all([getApps(searchParams), getCategories(), getDevices()]);
 }
 
