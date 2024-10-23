@@ -1,5 +1,4 @@
-import { signIn, signOut, useSession } from "next-auth/react";
-import styles from "@/components/LoginButton/LoginButton.module.css";
+import { useSession } from "next-auth/react";
 
 export function Account() {
   const { data: session, status } = useSession();

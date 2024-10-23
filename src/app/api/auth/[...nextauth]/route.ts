@@ -1,15 +1,20 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import KeycloakProvider from "next-auth/providers/keycloak";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const handler = NextAuth({
-  // Configure one or more authentication providers
+// Documentation used:
+// https://mi-do.medium.com/integration-of-keycloak-with-applications-af1b0aefd967
+// https://next-auth.js.org/configuration/initialization
+
+const options: AuthOptions = {
   providers: [
     KeycloakProvider({
       clientId: process.env.KEYCLOAK_ID!,
       clientSecret: process.env.KEYCLOAK_SECRET!,
       issuer: process.env.KEYCLOAK_ISSUER,
     }),
-  ], // ...add more providers here
+  ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, account }) {
       // Persist the OAuth access_token to the token right after signin
@@ -24,15 +29,18 @@ const handler = NextAuth({
       return session;
     },
     async signIn({ account, profile }) {
-      if (account?.provider === "keycloak") {
-        return true;
-      }
-      return false;
+      return account?.provider === "keycloak";
     },
   },
   pages: {
     signIn: "/signin",
   },
-});
+};
+
+const handler = NextAuth(options);
 
 export { handler as GET, handler as POST };
+
+// export default async function auth(req: NextApiRequest, res: NextApiResponse) {
+//   return await NextAuth(req, res, options);
+// }

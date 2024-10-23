@@ -14,6 +14,7 @@ export default async function Listing({
 }) {
   let data;
   try {
+    // TODO add caching
     data = await getAppData(searchParams);
   } catch (e) {
     if (!(e instanceof Error)) {

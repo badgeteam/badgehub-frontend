@@ -7,11 +7,11 @@ import {
   getDevicesResponse,
 } from "@/badgehub-api-client/generated/swagger/public/public";
 
-export function AppList({
-  data,
-}: {
+type AppListProps = {
   data: [getAppsResponse, getCategoriesResponse, getDevicesResponse];
-}) {
+};
+
+export function AppList({ data }: AppListProps) {
   const [apps, categories, devices] = data;
 
   return (
