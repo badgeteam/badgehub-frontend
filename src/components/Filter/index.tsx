@@ -5,13 +5,12 @@ import { useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Category, Device } from "@/badgehub-api-client/generated/models";
 
-export function Filter({
-  categories,
-  devices,
-}: {
+type FilterProps = {
   categories: Category[];
   devices: Device[];
-}) {
+};
+
+export function Filter({ categories, devices }: FilterProps) {
   const router = useRouter();
   const params = useSearchParams();
 
