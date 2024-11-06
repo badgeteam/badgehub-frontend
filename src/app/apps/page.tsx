@@ -33,10 +33,11 @@ export default function Listing({
       if (token) {
         await setToken(token);
       }
-      if (token) {
-        const data = await getAppData(searchParams);
-        setData(data);
-      }
+      // Disable authentication
+      // if (token) {
+      const data = await getAppData(searchParams);
+      setData(data);
+      // }
     }
 
     getData();
