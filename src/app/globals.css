@@ -6,6 +6,7 @@
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
   --foreground-rgb: 0, 0, 0;
+  --shade-rgb: 200, 200, 200;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 
@@ -43,6 +44,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
+    --shade-rgb: 50, 50, 50;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 60, 60, 60;
 
