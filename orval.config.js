@@ -16,7 +16,7 @@ export default defineConfig({
 
     input: {
       target:
-        "https://raw.githubusercontent.com/badgeteam/badgehub-api/master/public/swagger.json",
+        "http://localhost:8081/swagger.json",
     },
   },
 });

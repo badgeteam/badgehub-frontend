@@ -6,7 +6,9 @@
  * OpenAPI spec version: 3
  */
 
-export interface Device {
-  name: string;
-  slug: string;
+export interface ProjectPropsPartial {
+  allow_team_fixes?: boolean;
+  git?: string;
+  user_id?: string;
+  version_id?: number;
 }

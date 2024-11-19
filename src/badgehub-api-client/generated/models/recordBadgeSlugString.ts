@@ -6,9 +6,7 @@
  * OpenAPI spec version: 3
  */
 
-export interface App {
-  category_slug: string;
-  name: string;
-  slug: string;
-  user_name: string;
-}
+/**
+ * Construct a type with a set of properties K of type T
+ */
+export interface RecordBadgeSlugString {[key: string]: string}

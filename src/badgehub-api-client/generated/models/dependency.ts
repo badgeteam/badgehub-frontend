@@ -5,9 +5,9 @@
  * Node project for the BadgeHub API
  * OpenAPI spec version: 3
  */
-import type { AppCategoryName } from './appCategoryName';
+import type { ProjectSlug } from './projectSlug';
 
-export interface Category {
-  name: AppCategoryName;
-  slug: string;
+export interface Dependency {
+  project_slug: ProjectSlug;
+  semantic_version_range: string;
 }

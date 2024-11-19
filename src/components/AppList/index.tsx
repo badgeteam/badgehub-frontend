@@ -23,8 +23,8 @@ export function AppList({ data }: AppListProps) {
           <Link href={`/apps/${app.slug}`}>
             <h2>{app.name}</h2>
           </Link>
-          <Link href={`/categories/${app.category_slug}`}>
-            {app.category_slug}
+          <Link href={`/categories/${app.category}`}>
+            {app.category}
           </Link>
           <p>{app.user_name}</p>
         </article>
