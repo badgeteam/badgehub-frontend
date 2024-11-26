@@ -6,12 +6,9 @@
  * OpenAPI spec version: 3
  */
 
-export type VoteFromUserType = typeof VoteFromUserType[keyof typeof VoteFromUserType];
+export enum VoteFromUserType {
+  up= 'up',
+  down= 'down',
+  pig= 'pig',
 
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const VoteFromUserType = {
-  up: 'up',
-  down: 'down',
-  pig: 'pig',
-} as const;
+}

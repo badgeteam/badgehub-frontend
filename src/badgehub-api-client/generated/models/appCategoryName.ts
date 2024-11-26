@@ -6,24 +6,21 @@
  * OpenAPI spec version: 3
  */
 
-export type AppCategoryName = typeof AppCategoryName[keyof typeof AppCategoryName];
+export enum AppCategoryName {
+  Uncategorised= 'Uncategorised',
+  Event_related= 'Event related',
+  Games= 'Games',
+  Graphics= 'Graphics',
+  Hardware= 'Hardware',
+  Utility= 'Utility',
+  Wearable= 'Wearable',
+  Data= 'Data',
+  Silly= 'Silly',
+  Hacking= 'Hacking',
+  Troll= 'Troll',
+  Unusable= 'Unusable',
+  Adult= 'Adult',
+  Virus= 'Virus',
+  Interpreter= 'Interpreter',
 
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const AppCategoryName = {
-  Uncategorised: 'Uncategorised',
-  Event_related: 'Event related',
-  Games: 'Games',
-  Graphics: 'Graphics',
-  Hardware: 'Hardware',
-  Utility: 'Utility',
-  Wearable: 'Wearable',
-  Data: 'Data',
-  Silly: 'Silly',
-  Hacking: 'Hacking',
-  Troll: 'Troll',
-  Unusable: 'Unusable',
-  Adult: 'Adult',
-  Virus: 'Virus',
-  Interpreter: 'Interpreter',
-} as const;
+}
