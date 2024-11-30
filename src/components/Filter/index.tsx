@@ -3,11 +3,11 @@
 import styles from "./Filter.module.css";
 import { useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Category, Device } from "@/badgehub-api-client/generated/models";
+import { Category, Badge } from "@/badgehub-api-client/generated/models";
 
 type FilterProps = {
   categories: Category[];
-  devices: Device[];
+  devices: Badge[];
 };
 
 export function Filter({ categories, devices }: FilterProps) {

@@ -5,9 +5,8 @@
  * Node project for the BadgeHub API
  * OpenAPI spec version: 3
  */
-import type { AppCategoryName } from './appCategoryName';
 
-export interface Category {
-  name: AppCategoryName;
-  slug: string;
-}
+/**
+ * Construct a type with a set of properties K of type T
+ */
+export interface RecordStringString {[key: string]: string}

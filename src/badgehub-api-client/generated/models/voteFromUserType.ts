@@ -5,9 +5,10 @@
  * Node project for the BadgeHub API
  * OpenAPI spec version: 3
  */
-import type { AppCategoryName } from './appCategoryName';
 
-export interface Category {
-  name: AppCategoryName;
-  slug: string;
+export enum VoteFromUserType {
+  up= 'up',
+  down= 'down',
+  pig= 'pig',
+
 }

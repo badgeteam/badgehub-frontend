@@ -6,11 +6,10 @@
  * OpenAPI spec version: 3
  */
 
-export interface AppDetails {
-  category_slug: string;
-  description: string;
-  devices: string[];
+export interface Badge {
+  created_at: string;
+  deleted_at?: string;
   name: string;
   slug: string;
-  user_name: string;
+  updated_at: string;
 }

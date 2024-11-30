@@ -6,6 +6,6 @@
  * OpenAPI spec version: 3
  */
 
-export type GetAppDetails404 = {
+export type GetApp404 = {
   reason: string;
 };

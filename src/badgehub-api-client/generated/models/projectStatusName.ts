@@ -6,7 +6,10 @@
  * OpenAPI spec version: 3
  */
 
-export interface Device {
-  name: string;
-  slug: string;
+export enum ProjectStatusName {
+  working= 'working',
+  in_progress= 'in_progress',
+  broken= 'broken',
+  unknown= 'unknown',
+
 }
