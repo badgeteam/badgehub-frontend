@@ -3,24 +3,26 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const baseUrl = process.env.BADGEHUB_API_BASEURL || "https://api-staging.badgehub.nl";
+const baseUrl =
+  process.env.BADGEHUB_API_BASEURL || "https://api-staging.badgehub.nl";
 export default defineConfig({
   badgehub: {
     output: {
-      override:{
+      override: {
         useNativeEnums: true,
+        mutator: {
+          path: "./src/fetch-from-api.ts",
+          name: "fetchWithBaseUrl",
+        },
       },
       mode: "tags-split",
       target: "src/badgehub-api-client/generated/swagger",
       schemas: "src/badgehub-api-client/generated/models",
       client: "fetch",
-      baseUrl:
-        baseUrl,
     },
 
     input: {
-      target:
-        `${baseUrl}/swagger.json`,
+      target: `${baseUrl}/swagger.json`,
     },
   },
 });

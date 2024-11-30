@@ -12,6 +12,7 @@ import type {
   Project,
   Uint8Array
 } from '../../models'
+import { fetchWithBaseUrl } from '../../../../fetch-from-api';
 
 /**
  * Get list of devices (badges)
@@ -24,24 +25,19 @@ export type getDevicesResponse = {
 export const getGetDevicesUrl = () => {
 
 
-  return `http://localhost:8081/api/v3/devices`
+  return `/api/v3/devices`
 }
 
 export const getDevices = async ( options?: RequestInit): Promise<getDevicesResponse> => {
-  
-  const res = await fetch(getGetDevicesUrl(),
-  {      
+
+  return fetchWithBaseUrl<Promise<getDevicesResponse>>(getGetDevicesUrl(),
+  {
     ...options,
     method: 'GET'
-    
-    
+
+
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -55,24 +51,19 @@ export type getCategoriesResponse = {
 export const getGetCategoriesUrl = () => {
 
 
-  return `http://localhost:8081/api/v3/categories`
+  return `/api/v3/categories`
 }
 
 export const getCategories = async ( options?: RequestInit): Promise<getCategoriesResponse> => {
-  
-  const res = await fetch(getGetCategoriesUrl(),
-  {      
+
+  return fetchWithBaseUrl<Promise<getCategoriesResponse>>(getGetCategoriesUrl(),
+  {
     ...options,
     method: 'GET'
-    
-    
+
+
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -87,30 +78,25 @@ export const getGetAppsUrl = (params?: GetAppsParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
-    
+
     if (value !== undefined) {
       normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
   });
 
-  return normalizedParams.size ? `http://localhost:8081/api/v3/apps?${normalizedParams.toString()}` : `http://localhost:8081/api/v3/apps`
+  return normalizedParams.size ? `/api/v3/apps?${normalizedParams.toString()}` : `/api/v3/apps`
 }
 
 export const getApps = async (params?: GetAppsParams, options?: RequestInit): Promise<getAppsResponse> => {
-  
-  const res = await fetch(getGetAppsUrl(params),
-  {      
+
+  return fetchWithBaseUrl<Promise<getAppsResponse>>(getGetAppsUrl(params),
+  {
     ...options,
     method: 'GET'
-    
-    
+
+
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -124,24 +110,19 @@ export type getAppResponse = {
 export const getGetAppUrl = (slug: string,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}`
+  return `/api/v3/apps/${slug}`
 }
 
 export const getApp = async (slug: string, options?: RequestInit): Promise<getAppResponse> => {
-  
-  const res = await fetch(getGetAppUrl(slug),
-  {      
+
+  return fetchWithBaseUrl<Promise<getAppResponse>>(getGetAppUrl(slug),
+  {
     ...options,
     method: 'GET'
-    
-    
+
+
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -156,25 +137,20 @@ export const getGetLatestPublishedFileUrl = (slug: string,
     filePath: string,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}/files/latest/${filePath}`
+  return `/api/v3/apps/${slug}/files/latest/${filePath}`
 }
 
 export const getLatestPublishedFile = async (slug: string,
     filePath: string, options?: RequestInit): Promise<getLatestPublishedFileResponse> => {
-  
-  const res = await fetch(getGetLatestPublishedFileUrl(slug,filePath),
-  {      
+
+  return fetchWithBaseUrl<Promise<getLatestPublishedFileResponse>>(getGetLatestPublishedFileUrl(slug,filePath),
+  {
     ...options,
     method: 'GET'
-    
-    
+
+
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -190,26 +166,21 @@ export const getGetFileForVersionUrl = (slug: string,
     filePath: string,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}/files/rev${revision}/${filePath}`
+  return `/api/v3/apps/${slug}/files/rev${revision}/${filePath}`
 }
 
 export const getFileForVersion = async (slug: string,
     revision: number,
     filePath: string, options?: RequestInit): Promise<getFileForVersionResponse> => {
-  
-  const res = await fetch(getGetFileForVersionUrl(slug,revision,filePath),
-  {      
+
+  return fetchWithBaseUrl<Promise<getFileForVersionResponse>>(getGetFileForVersionUrl(slug,revision,filePath),
+  {
     ...options,
     method: 'GET'
-    
-    
+
+
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -224,24 +195,19 @@ export const getGetZipForVersionUrl = (slug: string,
     revision: number,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}/zip/rev${revision}`
+  return `/api/v3/apps/${slug}/zip/rev${revision}`
 }
 
 export const getZipForVersion = async (slug: string,
     revision: number, options?: RequestInit): Promise<getZipForVersionResponse> => {
-  
-  const res = await fetch(getGetZipForVersionUrl(slug,revision),
-  {      
+
+  return fetchWithBaseUrl<Promise<getZipForVersionResponse>>(getGetZipForVersionUrl(slug,revision),
+  {
     ...options,
     method: 'GET'
-    
-    
+
+
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 

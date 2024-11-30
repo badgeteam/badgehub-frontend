@@ -15,6 +15,7 @@ import type {
   Version,
   WriteFileBody
 } from '../../models'
+import { fetchWithBaseUrl } from '../../../../fetch-from-api';
 
 /**
  * Create a new app
@@ -27,26 +28,21 @@ export type createAppResponse = {
 export const getCreateAppUrl = (slug: ProjectSlug,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}`
+  return `/api/v3/apps/${slug}`
 }
 
 export const createApp = async (slug: ProjectSlug,
     projectProps: ProjectProps, options?: RequestInit): Promise<createAppResponse> => {
-  
-  const res = await fetch(getCreateAppUrl(slug),
-  {      
+
+  return fetchWithBaseUrl<Promise<createAppResponse>>(getCreateAppUrl(slug),
+  {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
       projectProps,)
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -60,24 +56,19 @@ export type deleteAppResponse = {
 export const getDeleteAppUrl = (slug: ProjectSlug,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}`
+  return `/api/v3/apps/${slug}`
 }
 
 export const deleteApp = async (slug: ProjectSlug, options?: RequestInit): Promise<deleteAppResponse> => {
-  
-  const res = await fetch(getDeleteAppUrl(slug),
-  {      
+
+  return fetchWithBaseUrl<Promise<deleteAppResponse>>(getDeleteAppUrl(slug),
+  {
     ...options,
     method: 'DELETE'
-    
-    
+
+
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -91,26 +82,21 @@ export type updateAppResponse = {
 export const getUpdateAppUrl = (slug: ProjectSlug,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}`
+  return `/api/v3/apps/${slug}`
 }
 
 export const updateApp = async (slug: ProjectSlug,
     projectPropsPartial: ProjectPropsPartial, options?: RequestInit): Promise<updateAppResponse> => {
-  
-  const res = await fetch(getUpdateAppUrl(slug),
-  {      
+
+  return fetchWithBaseUrl<Promise<updateAppResponse>>(getUpdateAppUrl(slug),
+  {
     ...options,
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
       projectPropsPartial,)
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -124,24 +110,19 @@ export type getLatestPublishedZipResponse = {
 export const getGetLatestPublishedZipUrl = (slug: string,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}/zip/draft`
+  return `/api/v3/apps/${slug}/zip/draft`
 }
 
 export const getLatestPublishedZip = async (slug: string, options?: RequestInit): Promise<getLatestPublishedZipResponse> => {
-  
-  const res = await fetch(getGetLatestPublishedZipUrl(slug),
-  {      
+
+  return fetchWithBaseUrl<Promise<getLatestPublishedZipResponse>>(getGetLatestPublishedZipUrl(slug),
+  {
     ...options,
     method: 'GET'
-    
-    
+
+
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -155,26 +136,21 @@ export type insertUserResponse = {
 export const getInsertUserUrl = (userId: string,) => {
 
 
-  return `http://localhost:8081/api/v3/users/${userId}`
+  return `/api/v3/users/${userId}`
 }
 
 export const insertUser = async (userId: string,
     userProps: UserProps, options?: RequestInit): Promise<insertUserResponse> => {
-  
-  const res = await fetch(getInsertUserUrl(userId),
-  {      
+
+  return fetchWithBaseUrl<Promise<insertUserResponse>>(getInsertUserUrl(userId),
+  {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
       userProps,)
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -189,27 +165,22 @@ export const getWriteFileUrl = (slug: string,
     filePath: string,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}/files/draft/${filePath}`
+  return `/api/v3/apps/${slug}/files/draft/${filePath}`
 }
 
 export const writeFile = async (slug: string,
     filePath: string,
     writeFileBody: WriteFileBody, options?: RequestInit): Promise<writeFileResponse> => {
-  
-  const res = await fetch(getWriteFileUrl(slug,filePath),
-  {      
+
+  return fetchWithBaseUrl<Promise<writeFileResponse>>(getWriteFileUrl(slug,filePath),
+  {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
       writeFileBody,)
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -224,25 +195,20 @@ export const getGetDraftFileUrl = (slug: string,
     filePath: string,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}/files/draft/${filePath}`
+  return `/api/v3/apps/${slug}/files/draft/${filePath}`
 }
 
 export const getDraftFile = async (slug: string,
     filePath: string, options?: RequestInit): Promise<getDraftFileResponse> => {
-  
-  const res = await fetch(getGetDraftFileUrl(slug,filePath),
-  {      
+
+  return fetchWithBaseUrl<Promise<getDraftFileResponse>>(getGetDraftFileUrl(slug,filePath),
+  {
     ...options,
     method: 'GET'
-    
-    
+
+
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -256,26 +222,21 @@ export type changeAppMetadataResponse = {
 export const getChangeAppMetadataUrl = (slug: string,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}/metadata/draft`
+  return `/api/v3/apps/${slug}/metadata/draft`
 }
 
 export const changeAppMetadata = async (slug: string,
     dbInsertAppMetadataJSONPartial: DbInsertAppMetadataJSONPartial, options?: RequestInit): Promise<changeAppMetadataResponse> => {
-  
-  const res = await fetch(getChangeAppMetadataUrl(slug),
-  {      
+
+  return fetchWithBaseUrl<Promise<changeAppMetadataResponse>>(getChangeAppMetadataUrl(slug),
+  {
     ...options,
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
       dbInsertAppMetadataJSONPartial,)
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -289,26 +250,21 @@ export type writeZipResponse = {
 export const getWriteZipUrl = (slug: string,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}/zip/draft`
+  return `/api/v3/apps/${slug}/zip/draft`
 }
 
 export const writeZip = async (slug: string,
     uint8Array: Uint8Array, options?: RequestInit): Promise<writeZipResponse> => {
-  
-  const res = await fetch(getWriteZipUrl(slug),
-  {      
+
+  return fetchWithBaseUrl<Promise<writeZipResponse>>(getWriteZipUrl(slug),
+  {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
       uint8Array,)
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
 /**
@@ -322,23 +278,18 @@ export type publishVersionResponse = {
 export const getPublishVersionUrl = (slug: string,) => {
 
 
-  return `http://localhost:8081/api/v3/apps/${slug}/publish`
+  return `/api/v3/apps/${slug}/publish`
 }
 
 export const publishVersion = async (slug: string, options?: RequestInit): Promise<publishVersionResponse> => {
-  
-  const res = await fetch(getPublishVersionUrl(slug),
-  {      
+
+  return fetchWithBaseUrl<Promise<publishVersionResponse>>(getPublishVersionUrl(slug),
+  {
     ...options,
     method: 'PATCH'
-    
-    
+
+
   }
-
-  )
-  const data = await res.json()
-
-  return { status: res.status, data }
-}
+);}
 
 
