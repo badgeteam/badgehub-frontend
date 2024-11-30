@@ -9,6 +9,6 @@
 export interface ProjectPropsPartial {
   allow_team_fixes?: boolean;
   git?: string;
-  user_id?: string;
+  user_id?: number;
   version_id?: number;
 }

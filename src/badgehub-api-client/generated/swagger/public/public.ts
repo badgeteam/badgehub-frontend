@@ -29,13 +29,13 @@ export const getGetDevicesUrl = () => {
 }
 
 export const getDevices = async ( options?: RequestInit): Promise<getDevicesResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<getDevicesResponse>>(getGetDevicesUrl(),
-  {
+  {      
     ...options,
     method: 'GET'
-
-
+    
+    
   }
 );}
 
@@ -55,13 +55,13 @@ export const getGetCategoriesUrl = () => {
 }
 
 export const getCategories = async ( options?: RequestInit): Promise<getCategoriesResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<getCategoriesResponse>>(getGetCategoriesUrl(),
-  {
+  {      
     ...options,
     method: 'GET'
-
-
+    
+    
   }
 );}
 
@@ -78,7 +78,7 @@ export const getGetAppsUrl = (params?: GetAppsParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
-
+    
     if (value !== undefined) {
       normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
@@ -88,13 +88,13 @@ export const getGetAppsUrl = (params?: GetAppsParams,) => {
 }
 
 export const getApps = async (params?: GetAppsParams, options?: RequestInit): Promise<getAppsResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<getAppsResponse>>(getGetAppsUrl(params),
-  {
+  {      
     ...options,
     method: 'GET'
-
-
+    
+    
   }
 );}
 
@@ -114,13 +114,13 @@ export const getGetAppUrl = (slug: string,) => {
 }
 
 export const getApp = async (slug: string, options?: RequestInit): Promise<getAppResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<getAppResponse>>(getGetAppUrl(slug),
-  {
+  {      
     ...options,
     method: 'GET'
-
-
+    
+    
   }
 );}
 
@@ -142,13 +142,13 @@ export const getGetLatestPublishedFileUrl = (slug: string,
 
 export const getLatestPublishedFile = async (slug: string,
     filePath: string, options?: RequestInit): Promise<getLatestPublishedFileResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<getLatestPublishedFileResponse>>(getGetLatestPublishedFileUrl(slug,filePath),
-  {
+  {      
     ...options,
     method: 'GET'
-
-
+    
+    
   }
 );}
 
@@ -172,13 +172,13 @@ export const getGetFileForVersionUrl = (slug: string,
 export const getFileForVersion = async (slug: string,
     revision: number,
     filePath: string, options?: RequestInit): Promise<getFileForVersionResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<getFileForVersionResponse>>(getGetFileForVersionUrl(slug,revision,filePath),
-  {
+  {      
     ...options,
     method: 'GET'
-
-
+    
+    
   }
 );}
 
@@ -200,13 +200,13 @@ export const getGetZipForVersionUrl = (slug: string,
 
 export const getZipForVersion = async (slug: string,
     revision: number, options?: RequestInit): Promise<getZipForVersionResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<getZipForVersionResponse>>(getGetZipForVersionUrl(slug,revision),
-  {
+  {      
     ...options,
     method: 'GET'
-
-
+    
+    
   }
 );}
 

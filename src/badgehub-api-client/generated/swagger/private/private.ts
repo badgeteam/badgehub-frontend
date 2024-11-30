@@ -33,9 +33,9 @@ export const getCreateAppUrl = (slug: ProjectSlug,) => {
 
 export const createApp = async (slug: ProjectSlug,
     projectProps: ProjectProps, options?: RequestInit): Promise<createAppResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<createAppResponse>>(getCreateAppUrl(slug),
-  {
+  {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
@@ -60,13 +60,13 @@ export const getDeleteAppUrl = (slug: ProjectSlug,) => {
 }
 
 export const deleteApp = async (slug: ProjectSlug, options?: RequestInit): Promise<deleteAppResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<deleteAppResponse>>(getDeleteAppUrl(slug),
-  {
+  {      
     ...options,
     method: 'DELETE'
-
-
+    
+    
   }
 );}
 
@@ -87,9 +87,9 @@ export const getUpdateAppUrl = (slug: ProjectSlug,) => {
 
 export const updateApp = async (slug: ProjectSlug,
     projectPropsPartial: ProjectPropsPartial, options?: RequestInit): Promise<updateAppResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<updateAppResponse>>(getUpdateAppUrl(slug),
-  {
+  {      
     ...options,
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
@@ -110,17 +110,17 @@ export type getLatestPublishedZipResponse = {
 export const getGetLatestPublishedZipUrl = (slug: string,) => {
 
 
-  return `/api/v3/apps/${slug}/zip/draft`
+  return `/api/v3/apps/${slug}/draft/zip`
 }
 
 export const getLatestPublishedZip = async (slug: string, options?: RequestInit): Promise<getLatestPublishedZipResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<getLatestPublishedZipResponse>>(getGetLatestPublishedZipUrl(slug),
-  {
+  {      
     ...options,
     method: 'GET'
-
-
+    
+    
   }
 );}
 
@@ -133,17 +133,17 @@ export type insertUserResponse = {
   status: number;
 }
 
-export const getInsertUserUrl = (userId: string,) => {
+export const getInsertUserUrl = (userId: number,) => {
 
 
   return `/api/v3/users/${userId}`
 }
 
-export const insertUser = async (userId: string,
+export const insertUser = async (userId: number,
     userProps: UserProps, options?: RequestInit): Promise<insertUserResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<insertUserResponse>>(getInsertUserUrl(userId),
-  {
+  {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
@@ -165,15 +165,15 @@ export const getWriteFileUrl = (slug: string,
     filePath: string,) => {
 
 
-  return `/api/v3/apps/${slug}/files/draft/${filePath}`
+  return `/api/v3/apps/${slug}/draft/files/${filePath}`
 }
 
 export const writeFile = async (slug: string,
     filePath: string,
     writeFileBody: WriteFileBody, options?: RequestInit): Promise<writeFileResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<writeFileResponse>>(getWriteFileUrl(slug,filePath),
-  {
+  {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
@@ -195,18 +195,18 @@ export const getGetDraftFileUrl = (slug: string,
     filePath: string,) => {
 
 
-  return `/api/v3/apps/${slug}/files/draft/${filePath}`
+  return `/api/v3/apps/${slug}/draft/files/${filePath}`
 }
 
 export const getDraftFile = async (slug: string,
     filePath: string, options?: RequestInit): Promise<getDraftFileResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<getDraftFileResponse>>(getGetDraftFileUrl(slug,filePath),
-  {
+  {      
     ...options,
     method: 'GET'
-
-
+    
+    
   }
 );}
 
@@ -222,14 +222,14 @@ export type changeAppMetadataResponse = {
 export const getChangeAppMetadataUrl = (slug: string,) => {
 
 
-  return `/api/v3/apps/${slug}/metadata/draft`
+  return `/api/v3/apps/${slug}/draft/metadata`
 }
 
 export const changeAppMetadata = async (slug: string,
     dbInsertAppMetadataJSONPartial: DbInsertAppMetadataJSONPartial, options?: RequestInit): Promise<changeAppMetadataResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<changeAppMetadataResponse>>(getChangeAppMetadataUrl(slug),
-  {
+  {      
     ...options,
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
@@ -250,14 +250,14 @@ export type writeZipResponse = {
 export const getWriteZipUrl = (slug: string,) => {
 
 
-  return `/api/v3/apps/${slug}/zip/draft`
+  return `/api/v3/apps/${slug}/draft/zip`
 }
 
 export const writeZip = async (slug: string,
     uint8Array: Uint8Array, options?: RequestInit): Promise<writeZipResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<writeZipResponse>>(getWriteZipUrl(slug),
-  {
+  {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
@@ -282,13 +282,13 @@ export const getPublishVersionUrl = (slug: string,) => {
 }
 
 export const publishVersion = async (slug: string, options?: RequestInit): Promise<publishVersionResponse> => {
-
+  
   return fetchWithBaseUrl<Promise<publishVersionResponse>>(getPublishVersionUrl(slug),
-  {
+  {      
     ...options,
     method: 'PATCH'
-
-
+    
+    
   }
 );}
 

@@ -13,7 +13,7 @@ export interface User {
   editor: string;
   email: string;
   email_verified_at?: string;
-  id: string;
+  id: number;
   name: string;
   password: string;
   public: boolean;

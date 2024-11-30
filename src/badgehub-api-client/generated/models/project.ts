@@ -39,7 +39,7 @@ export interface Project {
   states?: ProjectStatusOnBadge[];
   status?: ProjectStatusName;
   updated_at: string;
-  user_id: string;
+  user_id: number;
   user_name?: string;
   version?: Version;
   versions?: Version[];
