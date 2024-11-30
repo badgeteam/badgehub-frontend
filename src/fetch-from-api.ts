@@ -1,7 +1,7 @@
 const getBody = <T>(c: Response | Request): Promise<T> => {
-  const contentType = c.headers.get('content-type');
+  const contentType = c.headers.get("content-type");
 
-  if (contentType && contentType.includes('application/json')) {
+  if (contentType && contentType.includes("application/json")) {
     return c.json();
   }
 
@@ -20,7 +20,7 @@ export const fetchWithBaseUrl = async <T>(
 ): Promise<T> => {
   const requestUrl = getUrl(url);
   const res = await fetch(requestUrl, options);
-  const data = await getBody(res)
+  const data = await getBody(res);
 
-  return { status: res.status, data } as T
+  return { status: res.status, data } as T;
 };
