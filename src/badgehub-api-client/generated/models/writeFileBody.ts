@@ -5,9 +5,6 @@
  * Node project for the BadgeHub API
  * OpenAPI spec version: 3
  */
-import type { AppCategoryName } from './appCategoryName';
+import type { Uint8Array } from './uint8Array';
 
-export interface Category {
-  name: AppCategoryName;
-  slug: string;
-}
+export type WriteFileBody = string | Uint8Array;

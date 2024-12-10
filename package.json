@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prebuild": "npm run swagger",
-    "swagger": "orval orval --config orval.config.js",
+    "swagger": "orval orval --config orval.config.ts",
     "prettier:check": "prettier --check .",
     "prettier:format": "prettier --write ."
   },

@@ -6,9 +6,7 @@
  * OpenAPI spec version: 3
  */
 
-export interface App {
-  category_slug: string;
-  name: string;
-  slug: string;
-  user_name: string;
-}
+export type RecordBadgeAtSlugArraySourceStringDestinationStringItem = {
+  destination: string;
+  source: string;
+};
