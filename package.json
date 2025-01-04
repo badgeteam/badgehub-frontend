@@ -8,14 +8,14 @@
     "start": "next start",
     "lint": "next lint",
     "prebuild": "npm run swagger",
-    "swagger": "orval orval --config orval.config.js",
+    "swagger": "orval orval --config orval.config.ts",
     "prettier:check": "prettier --check .",
     "prettier:format": "prettier --write ."
   },
   "dependencies": {
     "dotenv": "^16.4.5",
     "next": "14.2.15",
-    "next-auth": "^4.24.7",
+    "next-auth": "^4.24.10",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -26,8 +26,8 @@
     "clsx": "^2.1.1",
     "eslint": "^8.57.1",
     "eslint-config-next": "^14.2.15",
+    "jsonpath-plus": "^10.1.0",
     "jose": "^5.9.4",
-    "jsonpath-plus": "^10.0.4",
     "orval": "^7.0.1",
     "prettier": "3.3.3",
     "typescript": "^5"

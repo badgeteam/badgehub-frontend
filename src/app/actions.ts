@@ -1,11 +1,11 @@
 "use server";
 
+import { GetAppsParams } from "@/badgehub-api-client/generated/models";
 import {
   getApps,
   getCategories,
   getDevices,
 } from "@/badgehub-api-client/generated/swagger/public/public";
-import { GetAppsParams } from "@/badgehub-api-client/generated/models";
 
 let token = "";
 

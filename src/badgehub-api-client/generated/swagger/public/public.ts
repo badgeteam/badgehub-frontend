@@ -9,36 +9,9 @@ import type {
   App,
   AppDetails,
   Category,
-  Device,
   GetAppsParams
 } from '../../models'
-import { customFetch } from '../../../../custom-fetch';
-
-/**
- * Get list of devices (badges)
- */
-export type getDevicesResponse = {
-  data: Device[];
-  status: number;
-}
-
-export const getGetDevicesUrl = () => {
-
-
-  return `http://localhost:8001/api/v3/devices`
-}
-
-export const getDevices = async ( options?: RequestInit): Promise<getDevicesResponse> => {
-  
-  return customFetch<Promise<getDevicesResponse>>(getGetDevicesUrl(),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-
+import { fetchWithBaseUrl } from '../../../../fetch-from-api';
 
 /**
  * Get list of categories
@@ -51,12 +24,12 @@ export type getCategoriesResponse = {
 export const getGetCategoriesUrl = () => {
 
 
-  return `http://localhost:8001/api/v3/categories`
+  return `/api/v3/categories`
 }
 
 export const getCategories = async ( options?: RequestInit): Promise<getCategoriesResponse> => {
   
-  return customFetch<Promise<getCategoriesResponse>>(getGetCategoriesUrl(),
+  return fetchWithBaseUrl<Promise<getCategoriesResponse>>(getGetCategoriesUrl(),
   {      
     ...options,
     method: 'GET'
@@ -84,12 +57,12 @@ export const getGetAppsUrl = (params?: GetAppsParams,) => {
     }
   });
 
-  return normalizedParams.size ? `http://localhost:8001/api/v3/apps?${normalizedParams.toString()}` : `http://localhost:8001/api/v3/apps`
+  return normalizedParams.size ? `/api/v3/apps?${normalizedParams.toString()}` : `/api/v3/apps`
 }
 
 export const getApps = async (params?: GetAppsParams, options?: RequestInit): Promise<getAppsResponse> => {
   
-  return customFetch<Promise<getAppsResponse>>(getGetAppsUrl(params),
+  return fetchWithBaseUrl<Promise<getAppsResponse>>(getGetAppsUrl(params),
   {      
     ...options,
     method: 'GET'
@@ -110,12 +83,12 @@ export type getAppDetailsResponse = {
 export const getGetAppDetailsUrl = (slug: string,) => {
 
 
-  return `http://localhost:8001/api/v3/apps/${slug}`
+  return `/api/v3/apps/${slug}`
 }
 
 export const getAppDetails = async (slug: string, options?: RequestInit): Promise<getAppDetailsResponse> => {
   
-  return customFetch<Promise<getAppDetailsResponse>>(getGetAppDetailsUrl(slug),
+  return fetchWithBaseUrl<Promise<getAppDetailsResponse>>(getGetAppDetailsUrl(slug),
   {      
     ...options,
     method: 'GET'
