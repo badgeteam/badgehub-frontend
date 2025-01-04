@@ -29,7 +29,6 @@ export default function Listing({
   useEffect(() => {
     async function getData() {
       const token = (session as any)?.accessToken;
-      console.log("### token", `${token?.substring(0, 10)}...`);
       if (token) {
         await setToken(token);
       }
@@ -47,33 +46,3 @@ export default function Listing({
     </>
   );
 }
-
-// export default async function Listing({
-//                                           searchParams,
-//                                       }: {
-//     searchParams: Partial<SearchParams>;
-// }) {
-//     let data;
-//     try {
-//         data = await getAppData(searchParams);
-//     } catch (e) {
-//         if (!(e instanceof Error)) {
-//             return <p>Caught object that wasn&amp;t an error.</p>;
-//         }
-//         return (
-//             <>
-//                 <p>Error while rendering</p>
-//                 <code>
-//                     <pre>{JSON.stringify(e.message)}</pre>
-//                 </code>
-//             </>
-//         );
-//     }
-//
-//     return (
-//         <>
-//             <LoginButton />
-//             <AppList data={data} />
-//         </>
-//     );
-// }

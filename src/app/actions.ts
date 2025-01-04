@@ -21,18 +21,16 @@ import {
 let token = "";
 
 export async function getAppData(searchParams: GetAppsParams) {
-  console.log("getAppData searchParams", searchParams);
+  // console.log("getAppData searchParams", searchParams);
   return Promise.all([getApps(searchParams), getCategories(), getDevices()]);
 }
 
 export async function setToken(tokenIn: string) {
-  console.log("### setToken", tokenIn);
-
+  // console.log("### setToken", tokenIn);
   token = tokenIn;
 }
 
 export async function getToken() {
-  console.log("### getToken", token);
-
+  // console.log("### getToken", token);
   return token;
 }
