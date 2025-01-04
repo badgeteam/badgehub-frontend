@@ -1,3 +1,7 @@
+"use server";
+
+import { getToken } from "@/app/actions";
+
 const getBody = <T>(c: Response | Request): Promise<T> => {
   const contentType = c.headers.get("content-type");
 
@@ -18,9 +22,21 @@ export const fetchWithBaseUrl = async <T>(
   url: string,
   options: RequestInit,
 ): Promise<T> => {
-  const requestUrl = getUrl(url);
-  const res = await fetch(requestUrl, options);
-  const data = await getBody(res);
+  const token = await getToken();
 
-  return { status: res.status, data } as T;
+  const requestUrl = getUrl(url);
+
+  const customOptions: RequestInit = {
+    ...options,
+    headers: new Headers({
+      Authorization: `Bearer ${token}`,
+    }),
+  };
+
+  const request = new Request(requestUrl, customOptions);
+
+  const response = await fetch(request);
+  const data = await getBody(response);
+
+  return { status: response.status, data } as T;
 };
