@@ -7,6 +7,17 @@ import {
   getDevices,
 } from "@/badgehub-api-client/generated/swagger/public/public";
 
+/**
+ * TODO: rewrite to Next.js conforming code.
+ *
+ * I don't think this is the right Next.js way to do this.
+ *
+ * With setToken, the token is set from the browser to the Next.js server.
+ * The server code can then read the token with getToken().
+ *
+ * It works, but it feels like a hack. Next.js has a way to handle this better, right?
+ */
+
 let token = "";
 
 export async function getAppData(searchParams: GetAppsParams) {
