@@ -6,12 +6,39 @@
  * OpenAPI spec version: 3
  */
 import type {
-  App,
-  AppDetails,
+  Badge,
   Category,
-  GetAppsParams
+  GetAppsParams,
+  Project,
+  Uint8Array
 } from '../../models'
 import { fetchWithBaseUrl } from '../../../../fetch-from-api';
+
+/**
+ * Get list of devices (badges)
+ */
+export type getDevicesResponse = {
+  data: Badge[];
+  status: number;
+}
+
+export const getGetDevicesUrl = () => {
+
+
+  return `/api/v3/devices`
+}
+
+export const getDevices = async ( options?: RequestInit): Promise<getDevicesResponse> => {
+  
+  return fetchWithBaseUrl<Promise<getDevicesResponse>>(getGetDevicesUrl(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
 
 /**
  * Get list of categories
@@ -40,10 +67,10 @@ export const getCategories = async ( options?: RequestInit): Promise<getCategori
 
 
 /**
- * Get list of apps, optionally limited by page start/length and/or filtered by category
+ * Get list of apps, optionally limited by page start/length and/or filtered by categorySlug
  */
 export type getAppsResponse = {
-  data: App[];
+  data: Project[];
   status: number;
 }
 
@@ -75,20 +102,106 @@ export const getApps = async (params?: GetAppsParams, options?: RequestInit): Pr
 /**
  * Get app details
  */
-export type getAppDetailsResponse = {
-  data: AppDetails;
+export type getAppResponse = {
+  data: Project;
   status: number;
 }
 
-export const getGetAppDetailsUrl = (slug: string,) => {
+export const getGetAppUrl = (slug: string,) => {
 
 
   return `/api/v3/apps/${slug}`
 }
 
-export const getAppDetails = async (slug: string, options?: RequestInit): Promise<getAppDetailsResponse> => {
+export const getApp = async (slug: string, options?: RequestInit): Promise<getAppResponse> => {
   
-  return fetchWithBaseUrl<Promise<getAppDetailsResponse>>(getGetAppDetailsUrl(slug),
+  return fetchWithBaseUrl<Promise<getAppResponse>>(getGetAppUrl(slug),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+/**
+ * get the latest published version of a file in the project
+ */
+export type getLatestPublishedFileResponse = {
+  data: Uint8Array;
+  status: number;
+}
+
+export const getGetLatestPublishedFileUrl = (slug: string,
+    filePath: string,) => {
+
+
+  return `/api/v3/apps/${slug}/files/latest/${filePath}`
+}
+
+export const getLatestPublishedFile = async (slug: string,
+    filePath: string, options?: RequestInit): Promise<getLatestPublishedFileResponse> => {
+  
+  return fetchWithBaseUrl<Promise<getLatestPublishedFileResponse>>(getGetLatestPublishedFileUrl(slug,filePath),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+/**
+ * get a file for a specific version of the project
+ */
+export type getFileForVersionResponse = {
+  data: Uint8Array;
+  status: number;
+}
+
+export const getGetFileForVersionUrl = (slug: string,
+    revision: number,
+    filePath: string,) => {
+
+
+  return `/api/v3/apps/${slug}/files/rev${revision}/${filePath}`
+}
+
+export const getFileForVersion = async (slug: string,
+    revision: number,
+    filePath: string, options?: RequestInit): Promise<getFileForVersionResponse> => {
+  
+  return fetchWithBaseUrl<Promise<getFileForVersionResponse>>(getGetFileForVersionUrl(slug,revision,filePath),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+/**
+ * get the app zip for a specific version of the project
+ */
+export type getZipForVersionResponse = {
+  data: Uint8Array;
+  status: number;
+}
+
+export const getGetZipForVersionUrl = (slug: string,
+    revision: number,) => {
+
+
+  return `/api/v3/apps/${slug}/zip/rev${revision}`
+}
+
+export const getZipForVersion = async (slug: string,
+    revision: number, options?: RequestInit): Promise<getZipForVersionResponse> => {
+  
+  return fetchWithBaseUrl<Promise<getZipForVersionResponse>>(getGetZipForVersionUrl(slug,revision),
   {      
     ...options,
     method: 'GET'
