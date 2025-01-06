@@ -9,7 +9,7 @@ import {
   getCategoriesResponse,
   getDevicesResponse,
 } from "@/badgehub-api-client/generated/swagger/public/public";
-import { getAppData, setToken } from "../actions";
+import { getAppData } from "../actions";
 
 export interface SearchParams {
   category: string;
@@ -29,10 +29,7 @@ export default function Listing({
   useEffect(() => {
     async function getData() {
       const token = (session as any)?.accessToken;
-      if (token) {
-        await setToken(token);
-      }
-      const data = await getAppData(searchParams);
+      const data = await getAppData(searchParams, token);
       setData(data);
     }
 
