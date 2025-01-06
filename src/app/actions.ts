@@ -7,17 +7,16 @@ import {
   getDevices,
 } from "@/badgehub-api-client/generated/swagger/public/public";
 
-let token = "";
-
-export async function getAppData(
-  searchParams: GetAppsParams,
-  newToken: string,
-) {
-  token = newToken;
-  return Promise.all([getApps(searchParams), getCategories(), getDevices()]);
-}
-
-export async function getToken() {
-  // console.log("### getToken", token);
-  return token;
+export async function getAppData(searchParams: GetAppsParams, token: string) {
+  const headers = new Headers({
+    Authorization: `Bearer ${token}`,
+  });
+  const options: RequestInit = {
+    headers,
+  };
+  return Promise.all([
+    getApps(searchParams, options),
+    getCategories(options),
+    getDevices(options),
+  ]);
 }
