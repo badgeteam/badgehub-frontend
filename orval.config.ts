@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const baseUrl =
-  process.env.BADGEHUB_API_BASEURL || "https://api-staging.badgehub.nl";
+  process.env.BADGEHUB_API_BASEURL || "https://badgehub-api.p1m.nl";
 export default defineConfig({
   badgehub: {
     output: {
