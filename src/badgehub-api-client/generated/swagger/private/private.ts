@@ -12,7 +12,6 @@ import type {
   ProjectSlug,
   Uint8Array,
   UserProps,
-  Version,
   WriteFileBody
 } from '../../models'
 import { fetchWithBaseUrl } from '../../../../fetch-from-api';
@@ -243,7 +242,7 @@ export const changeAppMetadata = async (slug: string,
  * Upload a file to the latest draft version of the project.
  */
 export type writeZipResponse = {
-  data: Version;
+  data: void;
   status: number;
 }
 

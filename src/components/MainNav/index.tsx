@@ -7,8 +7,6 @@ import clsx from "clsx";
 export function MainNav() {
   const pathname = usePathname();
 
-  console.log("pathname", pathname);
-
   return (
     <nav className={styles.mainNav}>
       <Link
