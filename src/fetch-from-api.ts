@@ -11,7 +11,7 @@ const getBody = <T>(c: Response | Request): Promise<T> => {
 };
 
 const baseUrl =
-  process.env.BADGEHUB_API_BASEURL || "https://api-staging.badgehub.nl";
+  process.env.BADGEHUB_API_BASEURL || "https://badgehub-api.p1m.nl/";
 const getUrl = (contextUrl: string): string => {
   return baseUrl + contextUrl;
 };

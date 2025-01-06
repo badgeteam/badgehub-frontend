@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const baseUrl =
-  process.env.BADGEHUB_API_BASEURL || "https://api-staging.badgehub.nl";
+  process.env.BADGEHUB_API_BASEURL || "https://badgehub-api.p1m.nl";
 
 const swaggerUrl = `${baseUrl}/swagger.json`;
 
