@@ -1,3 +1,5 @@
+"use server";
+
 const getBody = <T>(c: Response | Request): Promise<T> => {
   const contentType = c.headers.get("content-type");
 
@@ -19,8 +21,9 @@ export const fetchWithBaseUrl = async <T>(
   options: RequestInit,
 ): Promise<T> => {
   const requestUrl = getUrl(url);
-  const res = await fetch(requestUrl, options);
-  const data = await getBody(res);
+  const request = new Request(requestUrl, options);
+  const response = await fetch(request);
+  const data = await getBody(response);
 
-  return { status: res.status, data } as T;
+  return { status: response.status, data } as T;
 };

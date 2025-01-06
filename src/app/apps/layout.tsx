@@ -1,11 +1,20 @@
-import { ReactNode } from "react";
-import styles from "./layout.module.css";
+"use client";
 
-export default function AppsListingLayout(props: { children: ReactNode }) {
+import { SessionProvider } from "next-auth/react";
+import styles from "./layout.module.css";
+import { ReactNode } from "react";
+
+type AppsListingLayoutProps = {
+  children: ReactNode;
+};
+
+export default function AppsListingLayout({
+  children,
+}: AppsListingLayoutProps) {
   return (
     <main>
       <h1 className={styles.title}>Apps</h1>
-      {props.children}
+      <SessionProvider>{children}</SessionProvider>
     </main>
   );
 }

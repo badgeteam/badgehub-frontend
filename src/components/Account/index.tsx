@@ -20,6 +20,7 @@ export function Account() {
   return (
     <>
       <h1>Account</h1>
+      <p>JWT: {(session as any)?.accessToken}</p>
       {html}
     </>
   );
