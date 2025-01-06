@@ -26,14 +26,15 @@ export const fetchWithBaseUrl = async <T>(
 
   const requestUrl = getUrl(url);
 
-  const customOptions: RequestInit = {
+  const headers = new Headers(options.headers);
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const optionsWithAuth: RequestInit = {
     ...options,
-    headers: new Headers({
-      Authorization: `Bearer ${token}`,
-    }),
+    headers,
   };
 
-  const request = new Request(requestUrl, customOptions);
+  const request = new Request(requestUrl, optionsWithAuth);
 
   const response = await fetch(request);
   const data = await getBody(response);
