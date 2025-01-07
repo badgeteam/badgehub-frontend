@@ -62,7 +62,20 @@ jobs:
     env:
       DOCKER_TAG: ${{ needs.build-and-push.outputs.image_sha }} # Pass the SHA to deploy
     steps:
-      - name: Deploy to server
+      - name: Deploy to dev server
+        uses: garygrossgarten/github-action-ssh@0.8.0
+        with:
+          command: |
+            cd badgehub-infra/badgehub
+            export FRONTEND_IMAGE_TAG=${{ env.DOCKER_TAG }}
+            echo "FRONTEND_IMAGE_TAG is: $FRONTEND_IMAGE_TAG"
+            docker-compose -f docker-compose.yml up  --no-deps -d badgehub-frontend
+          host: ${{ secrets.DEV_HOST }}
+          port: ${{ secrets.DEV_PORT }}
+          username: ${{ secrets.DEV_USERNAME }}
+          passphrase: ${{ secrets.DEV_PASSPHRASE }}
+          privateKey: ${{ secrets.DEV_PRIVATE_KEY }}
+      - name: Deploy to staging server
         uses: garygrossgarten/github-action-ssh@0.8.0
         with:
           command: |
