@@ -5,22 +5,19 @@
  * Node project for the BadgeHub API
  * OpenAPI spec version: 3
  */
-import type { User } from './user';
-import type { Version } from './version';
 
 export interface FileMetadata {
-  baseName: string;
-  crc32: string;
+  confirmed_in_sync_on_disk: boolean;
   created_at: string;
   deleted_at?: string;
-  editable?: boolean;
+  dir: string;
+  ext: string;
   extension: string;
-  lintable?: boolean;
-  mime?: string;
+  full_path: string;
+  mimetype: string;
   name: string;
+  sha256: string;
   size_formatted: string;
   size_of_content: number;
   updated_at: string;
-  user: User;
-  version: Version;
 }
