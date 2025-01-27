@@ -11,7 +11,10 @@
  */
 export interface PickDBInsertProjectExcludeKeyofDBInsertProjectSlug {
   allow_team_fixes?: boolean;
+  created_at?: string;
+  deleted_at?: string;
   git?: string;
+  updated_at?: string;
   user_id: number;
   version_id?: number;
 }

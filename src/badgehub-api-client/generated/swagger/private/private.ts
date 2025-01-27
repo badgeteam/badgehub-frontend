@@ -12,7 +12,7 @@ import type {
   ProjectSlug,
   Uint8Array,
   UserProps,
-  WriteFileBody
+  WriteDraftFileBody
 } from '../../models'
 import { fetchWithBaseUrl } from '../../../../fetch-from-api';
 
@@ -155,29 +155,31 @@ export const insertUser = async (userId: number,
 /**
  * Upload a file to the latest draft version of the project.
  */
-export type writeFileResponse = {
+export type writeDraftFileResponse = {
   data: void;
   status: number;
 }
 
-export const getWriteFileUrl = (slug: string,
+export const getWriteDraftFileUrl = (slug: string,
     filePath: string,) => {
 
 
   return `/api/v3/apps/${slug}/draft/files/${filePath}`
 }
 
-export const writeFile = async (slug: string,
+export const writeDraftFile = async (slug: string,
     filePath: string,
-    writeFileBody: WriteFileBody, options?: RequestInit): Promise<writeFileResponse> => {
-  
-  return fetchWithBaseUrl<Promise<writeFileResponse>>(getWriteFileUrl(slug,filePath),
+    writeDraftFileBody: WriteDraftFileBody, options?: RequestInit): Promise<writeDraftFileResponse> => {
+    const formData = new FormData();
+formData.append('file', writeDraftFileBody.file)
+
+  return fetchWithBaseUrl<Promise<writeDraftFileResponse>>(getWriteDraftFileUrl(slug,filePath),
   {      
     ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      writeFileBody,)
+    method: 'POST'
+    ,
+    body: 
+      formData,
   }
 );}
 
@@ -186,7 +188,7 @@ export const writeFile = async (slug: string,
  * get the latest draft version of the project.
  */
 export type getDraftFileResponse = {
-  data: Uint8Array;
+  data: string;
   status: number;
 }
 
@@ -213,21 +215,21 @@ export const getDraftFile = async (slug: string,
 /**
  * Change the metadata of the latest draft version of the project.
  */
-export type changeAppMetadataResponse = {
+export type changeDraftAppMetadataResponse = {
   data: void;
   status: number;
 }
 
-export const getChangeAppMetadataUrl = (slug: string,) => {
+export const getChangeDraftAppMetadataUrl = (slug: string,) => {
 
 
   return `/api/v3/apps/${slug}/draft/metadata`
 }
 
-export const changeAppMetadata = async (slug: string,
-    dbInsertAppMetadataJSONPartial: DbInsertAppMetadataJSONPartial, options?: RequestInit): Promise<changeAppMetadataResponse> => {
+export const changeDraftAppMetadata = async (slug: string,
+    dbInsertAppMetadataJSONPartial: DbInsertAppMetadataJSONPartial, options?: RequestInit): Promise<changeDraftAppMetadataResponse> => {
   
-  return fetchWithBaseUrl<Promise<changeAppMetadataResponse>>(getChangeAppMetadataUrl(slug),
+  return fetchWithBaseUrl<Promise<changeDraftAppMetadataResponse>>(getChangeDraftAppMetadataUrl(slug),
   {      
     ...options,
     method: 'PATCH',

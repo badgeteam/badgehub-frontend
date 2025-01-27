@@ -21,6 +21,7 @@ export enum AppCategoryName {
   Unusable= 'Unusable',
   Adult= 'Adult',
   Virus= 'Virus',
+  SAO= 'SAO',
   Interpreter= 'Interpreter',
 
 }
