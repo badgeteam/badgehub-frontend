@@ -20,3 +20,7 @@ export async function getAppData(searchParams: GetAppsParams, token: string) {
     getDevices(options),
   ]);
 }
+
+export async function getLogoutUrl() {
+  return `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/logout`;
+}

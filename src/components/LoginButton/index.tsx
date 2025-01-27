@@ -2,6 +2,7 @@
 
 import { useSession, signIn, signOut, SessionProvider } from "next-auth/react";
 import styles from "./LoginButton.module.css";
+import { getLogoutUrl } from "@/app/actions";
 
 export function LoginButton() {
   return (
@@ -31,7 +32,7 @@ export function LoginButtonInternal() {
       html = (
         <>
           {session?.user?.email}
-          <button className={styles.button} onClick={() => signOut()}>
+          <button className={styles.button} onClick={() => fullSignout()}>
             Sign out
           </button>
         </>
@@ -40,4 +41,12 @@ export function LoginButtonInternal() {
   }
 
   return <div className={styles.container}>{html}</div>;
+
+  async function fullSignout() {
+    const callbackUrl = await getLogoutUrl();
+    signOut({
+      redirect: true,
+      callbackUrl,
+    });
+  }
 }

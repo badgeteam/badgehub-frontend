@@ -1,6 +1,6 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import KeycloakProvider from "next-auth/providers/keycloak";
-import { NextApiRequest, NextApiResponse } from "next";
+import { getLogoutUrl } from "@/app/actions";
 
 // Documentation used:
 // https://mi-do.medium.com/integration-of-keycloak-with-applications-af1b0aefd967
@@ -30,6 +30,28 @@ const options: AuthOptions = {
     },
     async signIn({ account, profile }) {
       return account?.provider === "keycloak";
+    },
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith("/")) {
+        return `${baseUrl}${url}`;
+      }
+      if (new URL(url).origin === baseUrl) {
+        return url;
+      }
+      const logoutUrl = await getLogoutUrl();
+      if (url === logoutUrl) {
+        return logoutUrl;
+      }
+      return baseUrl;
+    },
+  },
+  events: {
+    async signOut({ token }) {
+      console.log("signOut::token", token);
+      console.log(
+        "signOut::process",
+        `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/logout`,
+      );
     },
   },
   pages: {
