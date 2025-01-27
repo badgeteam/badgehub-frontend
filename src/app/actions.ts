@@ -22,5 +22,5 @@ export async function getAppData(searchParams: GetAppsParams, token: string) {
 }
 
 export async function getLogoutUrl() {
-  return `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/logout`;
+  return process.env.KEYCLOAK_LOGOUT_URL;
 }

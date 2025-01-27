@@ -44,6 +44,11 @@ export function LoginButtonInternal() {
 
   async function fullSignout() {
     const callbackUrl = await getLogoutUrl();
+    console.log("callbackUrl", callbackUrl);
+    if (!callbackUrl) {
+      throw new Error("Logout url is not defined");
+      // Add KEYCLOAK_LOGOUT_URL to .env
+    }
     signOut({
       redirect: true,
       callbackUrl,

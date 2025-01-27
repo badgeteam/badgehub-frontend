@@ -45,15 +45,6 @@ const options: AuthOptions = {
       return baseUrl;
     },
   },
-  events: {
-    async signOut({ token }) {
-      console.log("signOut::token", token);
-      console.log(
-        "signOut::process",
-        `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/logout`,
-      );
-    },
-  },
   pages: {
     signIn: "/signin",
   },
@@ -62,7 +53,3 @@ const options: AuthOptions = {
 const handler = NextAuth(options);
 
 export { handler as GET, handler as POST };
-
-// export default async function auth(req: NextApiRequest, res: NextApiResponse) {
-//   return await NextAuth(req, res, options);
-// }
