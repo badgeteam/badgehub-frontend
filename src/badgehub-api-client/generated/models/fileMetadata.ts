@@ -7,7 +7,7 @@
  */
 
 export interface FileMetadata {
-  confirmed_in_sync_on_disk: boolean;
+  confirmed_in_sync_with_file_data: boolean;
   created_at: string;
   deleted_at?: string;
   dir: string;
