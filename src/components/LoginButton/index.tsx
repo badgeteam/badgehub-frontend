@@ -10,6 +10,11 @@ export function LoginButton() {
     </SessionProvider>
   );
 }
+const logoutFunc = () =>
+  signOut({
+    callbackUrl: "/api/logout",
+    redirect: true,
+  });
 
 export function LoginButtonInternal() {
   const { data: session, status } = useSession();
@@ -31,7 +36,7 @@ export function LoginButtonInternal() {
       html = (
         <>
           {session?.user?.email}
-          <button className={styles.button} onClick={() => signOut()}>
+          <button className={styles.button} onClick={logoutFunc}>
             Sign out
           </button>
         </>
