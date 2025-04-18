@@ -17,7 +17,5 @@ export interface FileMetadata {
   mimetype: string;
   name: string;
   sha256: string;
-  size_formatted: string;
-  size_of_content: number;
   updated_at: string;
 }
