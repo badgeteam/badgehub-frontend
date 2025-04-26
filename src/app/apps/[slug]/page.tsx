@@ -6,8 +6,11 @@ export default async function AppPage({
   params: { slug: string };
 }) {
   const response = await getApp(params.slug);
-  const app = response.data;
+  if (response.status === 404) {
+    return <p>App {params.slug} not found</p>;
+  }
 
+  const app = response.data;
   return (
     <article>
       <h2>{app.name}</h2>
