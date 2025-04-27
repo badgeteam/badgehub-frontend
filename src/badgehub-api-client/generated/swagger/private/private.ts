@@ -11,6 +11,7 @@ import type {
   GetDraftProject404,
   GetUserDraftProjectsParams,
   PickCreateProjectPropsExcludeKeyofCreateProjectPropsSlug,
+  PickProjectExcludeKeyofProjectVersion,
   Project,
   ProjectPropsPartial,
   ProjectSlug,
@@ -128,12 +129,12 @@ export const updateProject = async (slug: ProjectSlug,
 /**
  * Get all draft projects that the given user has access to.
  */
-export type getUserDraftProjectsResponse204 = {
-  data: void
-  status: 204
+export type getUserDraftProjectsResponse200 = {
+  data: PickProjectExcludeKeyofProjectVersion[]
+  status: 200
 }
     
-export type getUserDraftProjectsResponseComposite = getUserDraftProjectsResponse204;
+export type getUserDraftProjectsResponseComposite = getUserDraftProjectsResponse200;
     
 export type getUserDraftProjectsResponse = getUserDraftProjectsResponseComposite & {
   headers: Headers;
