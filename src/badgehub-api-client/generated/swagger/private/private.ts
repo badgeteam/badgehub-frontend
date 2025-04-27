@@ -13,7 +13,6 @@ import type {
   Project,
   ProjectPropsPartial,
   ProjectSlug,
-  UserProps,
   WriteDraftFileBody
 } from '../../models';
 
@@ -121,42 +120,6 @@ export const updateProject = async (slug: ProjectSlug,
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
       projectPropsPartial,)
-  }
-);}
-
-
-/**
- * Create a new user
- */
-export type insertUserResponse204 = {
-  data: void
-  status: 204
-}
-    
-export type insertUserResponseComposite = insertUserResponse204;
-    
-export type insertUserResponse = insertUserResponseComposite & {
-  headers: Headers;
-}
-
-export const getInsertUserUrl = (userId: number,) => {
-
-
-  
-
-  return `/api/v3/users/${userId}`
-}
-
-export const insertUser = async (userId: number,
-    userProps: UserProps, options?: RequestInit): Promise<insertUserResponse> => {
-  
-  return fetchWithBaseUrl<insertUserResponse>(getInsertUserUrl(userId),
-  {      
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      userProps,)
   }
 );}
 
