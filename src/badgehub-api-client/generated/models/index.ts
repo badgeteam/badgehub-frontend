@@ -40,7 +40,6 @@ export * from './recordStringSourceStringDestinationStringArray';
 export * from './recordStringSourceStringDestinationStringArrayItem';
 export * from './recordStringString';
 export * from './revisionNumber';
-export * from './uint8Array';
 export * from './user';
 export * from './userProps';
 export * from './version';

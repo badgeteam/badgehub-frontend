@@ -13,7 +13,6 @@ import type {
   Project,
   ProjectPropsPartial,
   ProjectSlug,
-  Uint8Array,
   UserProps,
   WriteDraftFileBody
 } from '../../models';
@@ -122,40 +121,6 @@ export const updateProject = async (slug: ProjectSlug,
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
       projectPropsPartial,)
-  }
-);}
-
-
-/**
- * get the latest draft version of the project in zip format
- */
-export type getLatestPublishedZipResponse200 = {
-  data: Uint8Array
-  status: 200
-}
-    
-export type getLatestPublishedZipResponseComposite = getLatestPublishedZipResponse200;
-    
-export type getLatestPublishedZipResponse = getLatestPublishedZipResponseComposite & {
-  headers: Headers;
-}
-
-export const getGetLatestPublishedZipUrl = (slug: string,) => {
-
-
-  
-
-  return `/api/v3/projects/${slug}/draft/zip`
-}
-
-export const getLatestPublishedZip = async (slug: string, options?: RequestInit): Promise<getLatestPublishedZipResponse> => {
-  
-  return fetchWithBaseUrl<getLatestPublishedZipResponse>(getGetLatestPublishedZipUrl(slug),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
   }
 );}
 
@@ -384,42 +349,6 @@ export const getDraftProject = async (slug: string, options?: RequestInit): Prom
     method: 'GET'
     
     
-  }
-);}
-
-
-/**
- * Upload a file to the latest draft version of the project.
- */
-export type writeZipResponse204 = {
-  data: void
-  status: 204
-}
-    
-export type writeZipResponseComposite = writeZipResponse204;
-    
-export type writeZipResponse = writeZipResponseComposite & {
-  headers: Headers;
-}
-
-export const getWriteZipUrl = (slug: string,) => {
-
-
-  
-
-  return `/api/v3/projects/${slug}/draft/zip`
-}
-
-export const writeZip = async (slug: string,
-    uint8Array: Uint8Array, options?: RequestInit): Promise<writeZipResponse> => {
-  
-  return fetchWithBaseUrl<writeZipResponse>(getWriteZipUrl(slug),
-  {      
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      uint8Array,)
   }
 );}
 

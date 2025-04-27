@@ -293,39 +293,3 @@ export const getFileForVersion = async (slug: string,
 );}
 
 
-/**
- * get the project zip for a specific version of the project
- */
-export type getZipForVersionResponse200 = {
-  data: string
-  status: 200
-}
-    
-export type getZipForVersionResponseComposite = getZipForVersionResponse200;
-    
-export type getZipForVersionResponse = getZipForVersionResponseComposite & {
-  headers: Headers;
-}
-
-export const getGetZipForVersionUrl = (slug: string,
-    revision: number,) => {
-
-
-  
-
-  return `/api/v3/projects/${slug}/zip/rev${revision}`
-}
-
-export const getZipForVersion = async (slug: string,
-    revision: number, options?: RequestInit): Promise<getZipForVersionResponse> => {
-  
-  return fetchWithBaseUrl<getZipForVersionResponse>(getGetZipForVersionUrl(slug,revision),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-
-
