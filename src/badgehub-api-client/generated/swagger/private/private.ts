@@ -9,6 +9,7 @@ import type {
   DbInsertAppMetadataJSONPartial,
   GetDraftFile404,
   GetDraftProject404,
+  GetUserDraftProjectsParams,
   PickCreateProjectPropsExcludeKeyofCreateProjectPropsSlug,
   Project,
   ProjectPropsPartial,
@@ -120,6 +121,49 @@ export const updateProject = async (slug: ProjectSlug,
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
       projectPropsPartial,)
+  }
+);}
+
+
+/**
+ * Get all draft projects that the given user has access to.
+ */
+export type getUserDraftProjectsResponse204 = {
+  data: void
+  status: 204
+}
+    
+export type getUserDraftProjectsResponseComposite = getUserDraftProjectsResponse204;
+    
+export type getUserDraftProjectsResponse = getUserDraftProjectsResponseComposite & {
+  headers: Headers;
+}
+
+export const getGetUserDraftProjectsUrl = (userId: number,
+    params?: GetUserDraftProjectsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/v3/users/${userId}/drafts?${stringifiedParams}` : `/api/v3/users/${userId}/drafts`
+}
+
+export const getUserDraftProjects = async (userId: number,
+    params?: GetUserDraftProjectsParams, options?: RequestInit): Promise<getUserDraftProjectsResponse> => {
+  
+  return fetchWithBaseUrl<getUserDraftProjectsResponse>(getGetUserDraftProjectsUrl(userId,params),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
 );}
 
