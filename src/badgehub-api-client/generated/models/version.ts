@@ -12,7 +12,6 @@ import type { AppMetadataJSON } from './appMetadataJSON';
 export interface Version {
   created_at: string;
   updated_at: string;
-  deleted_at?: string;
   revision: RevisionNumber;
   semantic_version?: string;
   zip?: string;

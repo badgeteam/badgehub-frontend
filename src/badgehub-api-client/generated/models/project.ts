@@ -21,7 +21,6 @@ export interface Project {
   allow_team_fixes?: boolean;
   created_at: string;
   updated_at: string;
-  deleted_at?: string;
   name?: string;
   min_firmware?: number;
   max_firmware?: number;

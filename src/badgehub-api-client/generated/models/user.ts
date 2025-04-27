@@ -9,7 +9,6 @@
 export interface User {
   created_at: string;
   updated_at: string;
-  deleted_at?: string;
   id: number;
   email: string;
   admin: boolean;

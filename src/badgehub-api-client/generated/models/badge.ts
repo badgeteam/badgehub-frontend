@@ -9,7 +9,6 @@
 export interface Badge {
   created_at: string;
   updated_at: string;
-  deleted_at?: string;
   name: string;
   slug: string;
 }

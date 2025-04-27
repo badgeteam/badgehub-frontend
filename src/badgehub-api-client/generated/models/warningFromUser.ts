@@ -12,5 +12,4 @@ export interface WarningFromUser {
   user: User;
   created_at: string;
   updated_at: string;
-  deleted_at?: string;
 }

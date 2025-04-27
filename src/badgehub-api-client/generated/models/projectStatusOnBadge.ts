@@ -12,6 +12,5 @@ export interface ProjectStatusOnBadge {
   badge: Badge;
   created_at: string;
   updated_at: string;
-  deleted_at?: string;
   status: (keyof typeof ProjectStatusName);
 }

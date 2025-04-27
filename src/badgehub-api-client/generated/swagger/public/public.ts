@@ -89,7 +89,7 @@ export const getCategories = async ( options?: RequestInit): Promise<getCategori
 
 
 /**
- * Get list of apps, optionally limited by page start/length and/or filtered by categorySlug
+ * Get list of projects, optionally limited by page start/length and/or filtered by categorySlug
  */
 export type getAppsResponse200 = {
   data: PickProjectExcludeKeyofProjectVersion[]
@@ -114,7 +114,7 @@ export const getGetAppsUrl = (params?: GetAppsParams,) => {
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `/api/v3/apps?${stringifiedParams}` : `/api/v3/apps`
+  return stringifiedParams.length > 0 ? `/api/v3/projects?${stringifiedParams}` : `/api/v3/projects`
 }
 
 export const getApps = async (params?: GetAppsParams, options?: RequestInit): Promise<getAppsResponse> => {
@@ -130,7 +130,7 @@ export const getApps = async (params?: GetAppsParams, options?: RequestInit): Pr
 
 
 /**
- * Get app details for a specific published revision of the app
+ * Get project details for a specific published revision of the project
  */
 export type getAppVersionResponse200 = {
   data: Project
@@ -154,7 +154,7 @@ export const getGetAppVersionUrl = (slug: string,
 
   
 
-  return `/api/v3/apps/${slug}/rev${revision}`
+  return `/api/v3/projects/${slug}/rev${revision}`
 }
 
 export const getAppVersion = async (slug: string,
@@ -171,7 +171,7 @@ export const getAppVersion = async (slug: string,
 
 
 /**
- * Get app details of the latest published version
+ * Get project details of the latest published version
  */
 export type getAppResponse200 = {
   data: Project
@@ -194,7 +194,7 @@ export const getGetAppUrl = (slug: string,) => {
 
   
 
-  return `/api/v3/apps/${slug}`
+  return `/api/v3/projects/${slug}`
 }
 
 export const getApp = async (slug: string, options?: RequestInit): Promise<getAppResponse> => {
@@ -234,7 +234,7 @@ export const getGetLatestPublishedFileUrl = (slug: string,
 
   
 
-  return `/api/v3/apps/${slug}/latest/files/${filePath}`
+  return `/api/v3/projects/${slug}/latest/files/${filePath}`
 }
 
 export const getLatestPublishedFile = async (slug: string,
@@ -276,7 +276,7 @@ export const getGetFileForVersionUrl = (slug: string,
 
   
 
-  return `/api/v3/apps/${slug}/rev${revision}/files/${filePath}`
+  return `/api/v3/projects/${slug}/rev${revision}/files/${filePath}`
 }
 
 export const getFileForVersion = async (slug: string,
@@ -294,7 +294,7 @@ export const getFileForVersion = async (slug: string,
 
 
 /**
- * get the app zip for a specific version of the project
+ * get the project zip for a specific version of the project
  */
 export type getZipForVersionResponse200 = {
   data: string
@@ -313,7 +313,7 @@ export const getGetZipForVersionUrl = (slug: string,
 
   
 
-  return `/api/v3/apps/${slug}/zip/rev${revision}`
+  return `/api/v3/projects/${slug}/zip/rev${revision}`
 }
 
 export const getZipForVersion = async (slug: string,

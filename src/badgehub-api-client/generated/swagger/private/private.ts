@@ -21,7 +21,7 @@ import type {
 import { fetchWithBaseUrl } from '../../../../fetch-from-api';
 
 /**
- * Create a new app
+ * Create a new project
  */
 export type createAppResponse204 = {
   data: void
@@ -39,7 +39,7 @@ export const getCreateAppUrl = (slug: ProjectSlug,) => {
 
   
 
-  return `/api/v3/apps/${slug}`
+  return `/api/v3/projects/${slug}`
 }
 
 export const createApp = async (slug: ProjectSlug,
@@ -57,7 +57,7 @@ export const createApp = async (slug: ProjectSlug,
 
 
 /**
- * Create a new app
+ * Create a new project
  */
 export type deleteAppResponse204 = {
   data: void
@@ -75,7 +75,7 @@ export const getDeleteAppUrl = (slug: ProjectSlug,) => {
 
   
 
-  return `/api/v3/apps/${slug}`
+  return `/api/v3/projects/${slug}`
 }
 
 export const deleteApp = async (slug: ProjectSlug, options?: RequestInit): Promise<deleteAppResponse> => {
@@ -91,7 +91,7 @@ export const deleteApp = async (slug: ProjectSlug, options?: RequestInit): Promi
 
 
 /**
- * Create a new app
+ * Create a new project
  */
 export type updateAppResponse204 = {
   data: void
@@ -109,7 +109,7 @@ export const getUpdateAppUrl = (slug: ProjectSlug,) => {
 
   
 
-  return `/api/v3/apps/${slug}`
+  return `/api/v3/projects/${slug}`
 }
 
 export const updateApp = async (slug: ProjectSlug,
@@ -127,7 +127,7 @@ export const updateApp = async (slug: ProjectSlug,
 
 
 /**
- * get the latest draft version of the app in zip format
+ * get the latest draft version of the project in zip format
  */
 export type getLatestPublishedZipResponse200 = {
   data: Uint8Array
@@ -145,7 +145,7 @@ export const getGetLatestPublishedZipUrl = (slug: string,) => {
 
   
 
-  return `/api/v3/apps/${slug}/draft/zip`
+  return `/api/v3/projects/${slug}/draft/zip`
 }
 
 export const getLatestPublishedZip = async (slug: string, options?: RequestInit): Promise<getLatestPublishedZipResponse> => {
@@ -216,7 +216,7 @@ export const getWriteDraftFileUrl = (slug: string,
 
   
 
-  return `/api/v3/apps/${slug}/draft/files/${filePath}`
+  return `/api/v3/projects/${slug}/draft/files/${filePath}`
 }
 
 export const writeDraftFile = async (slug: string,
@@ -256,7 +256,7 @@ export const getDeleteDraftFileUrl = (slug: string,
 
   
 
-  return `/api/v3/apps/${slug}/draft/files/${filePath}`
+  return `/api/v3/projects/${slug}/draft/files/${filePath}`
 }
 
 export const deleteDraftFile = async (slug: string,
@@ -297,7 +297,7 @@ export const getGetDraftFileUrl = (slug: string,
 
   
 
-  return `/api/v3/apps/${slug}/draft/files/${filePath}`
+  return `/api/v3/projects/${slug}/draft/files/${filePath}`
 }
 
 export const getDraftFile = async (slug: string,
@@ -332,7 +332,7 @@ export const getChangeDraftAppMetadataUrl = (slug: string,) => {
 
   
 
-  return `/api/v3/apps/${slug}/draft/metadata`
+  return `/api/v3/projects/${slug}/draft/metadata`
 }
 
 export const changeDraftAppMetadata = async (slug: string,
@@ -350,7 +350,7 @@ export const changeDraftAppMetadata = async (slug: string,
 
 
 /**
- * Get App details of the draft version of the app
+ * Get App details of the draft version of the project
  */
 export type getDraftAppResponse200 = {
   data: Project
@@ -373,7 +373,7 @@ export const getGetDraftAppUrl = (slug: string,) => {
 
   
 
-  return `/api/v3/apps/${slug}/draft`
+  return `/api/v3/projects/${slug}/draft`
 }
 
 export const getDraftApp = async (slug: string, options?: RequestInit): Promise<getDraftAppResponse> => {
@@ -407,7 +407,7 @@ export const getWriteZipUrl = (slug: string,) => {
 
   
 
-  return `/api/v3/apps/${slug}/draft/zip`
+  return `/api/v3/projects/${slug}/draft/zip`
 }
 
 export const writeZip = async (slug: string,
@@ -443,7 +443,7 @@ export const getPublishVersionUrl = (slug: string,) => {
 
   
 
-  return `/api/v3/apps/${slug}/publish`
+  return `/api/v3/projects/${slug}/publish`
 }
 
 export const publishVersion = async (slug: string, options?: RequestInit): Promise<publishVersionResponse> => {
