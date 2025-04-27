@@ -6,13 +6,7 @@
  * OpenAPI spec version: 3
  */
 import type { AppCategoryName } from './appCategoryName';
-import type { ProjectStatusName } from './projectStatusName';
 import type { Version } from './version';
-import type { Dependency } from './dependency';
-import type { ProjectStatusOnBadge } from './projectStatusOnBadge';
-import type { VoteFromUser } from './voteFromUser';
-import type { WarningFromUser } from './warningFromUser';
-import type { User } from './user';
 
 export interface Project {
   slug: string;
@@ -26,22 +20,12 @@ export interface Project {
   max_firmware?: number;
   git_commit_id?: string;
   published_at?: string;
-  download_counter?: number;
   license?: string;
-  size_of_zip?: number;
-  size_of_content?: number;
   category: (keyof typeof AppCategoryName);
   description?: string;
   revision?: number;
-  status?: (keyof typeof ProjectStatusName);
   user_name?: string;
   interpreter?: string;
   version?: Version;
   badges?: string[];
-  dependencies?: Dependency[];
-  states?: ProjectStatusOnBadge[];
-  versions?: Version[];
-  votes?: VoteFromUser[];
-  warnings?: WarningFromUser[];
-  collaborators?: User[];
 }
