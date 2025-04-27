@@ -2,13 +2,13 @@ import Link from "next/link";
 import styles from "./AppList.module.css";
 import { Filter } from "@/components/Filter";
 import {
-  getAppsResponse,
   getCategoriesResponse,
   getDevicesResponse,
+  getProjectsResponse,
 } from "@/badgehub-api-client/generated/swagger/public/public";
 
 type AppListProps = {
-  data: [getAppsResponse, getCategoriesResponse, getDevicesResponse];
+  data: [getProjectsResponse, getCategoriesResponse, getDevicesResponse];
 };
 
 export function AppList({ data }: AppListProps) {
@@ -18,13 +18,15 @@ export function AppList({ data }: AppListProps) {
     <>
       <Filter categories={categories.data} devices={devices.data} />
 
-      {apps.data.map((app) => (
-        <article className={styles.appCard} key={app.slug}>
-          <Link href={`/apps/${app.slug}`}>
-            <h2>{app.name}</h2>
+      {apps.data.map((project) => (
+        <article className={styles.appCard} key={project.slug}>
+          <Link href={`/apps/${project.slug}`}>
+            <h2>{project.name}</h2>
           </Link>
-          <Link href={`/categories/${app.category}`}>{app.category}</Link>
-          <p>{app.user_name}</p>
+          <Link href={`/categories/${project.category}`}>
+            {project.category}
+          </Link>
+          <p>{project.user_name}</p>
         </article>
       ))}
     </>

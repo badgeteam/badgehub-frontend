@@ -1,11 +1,11 @@
-import { getApp } from "@/badgehub-api-client/generated/swagger/public/public";
+import { getProject } from "@/badgehub-api-client/generated/swagger/public/public";
 
 export default async function AppPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const response = await getApp(params.slug);
+  const response = await getProject(params.slug);
   if (response.status === 404) {
     return <p>App {params.slug} not found</p>;
   }

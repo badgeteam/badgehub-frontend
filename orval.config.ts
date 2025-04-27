@@ -17,6 +17,7 @@ console.log("Reading swagger from", swaggerUrl);
 export default defineConfig({
   badgehub: {
     output: {
+      clean: true,
       override: {
         useNativeEnums: true,
         mutator: {
@@ -29,7 +30,6 @@ export default defineConfig({
       schemas: "src/badgehub-api-client/generated/models",
       client: "fetch",
     },
-
     input: {
       target: swaggerUrl,
     },

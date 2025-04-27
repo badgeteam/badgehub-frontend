@@ -7,8 +7,8 @@
  */
 import type {
   DbInsertAppMetadataJSONPartial,
-  GetDraftApp404,
   GetDraftFile404,
+  GetDraftProject404,
   PickCreateProjectPropsExcludeKeyofCreateProjectPropsSlug,
   Project,
   ProjectPropsPartial,
@@ -23,18 +23,18 @@ import { fetchWithBaseUrl } from '../../../../fetch-from-api';
 /**
  * Create a new project
  */
-export type createAppResponse204 = {
+export type createProjectResponse204 = {
   data: void
   status: 204
 }
     
-export type createAppResponseComposite = createAppResponse204;
+export type createProjectResponseComposite = createProjectResponse204;
     
-export type createAppResponse = createAppResponseComposite & {
+export type createProjectResponse = createProjectResponseComposite & {
   headers: Headers;
 }
 
-export const getCreateAppUrl = (slug: ProjectSlug,) => {
+export const getCreateProjectUrl = (slug: ProjectSlug,) => {
 
 
   
@@ -42,10 +42,10 @@ export const getCreateAppUrl = (slug: ProjectSlug,) => {
   return `/api/v3/projects/${slug}`
 }
 
-export const createApp = async (slug: ProjectSlug,
-    pickCreateProjectPropsExcludeKeyofCreateProjectPropsSlug: PickCreateProjectPropsExcludeKeyofCreateProjectPropsSlug, options?: RequestInit): Promise<createAppResponse> => {
+export const createProject = async (slug: ProjectSlug,
+    pickCreateProjectPropsExcludeKeyofCreateProjectPropsSlug: PickCreateProjectPropsExcludeKeyofCreateProjectPropsSlug, options?: RequestInit): Promise<createProjectResponse> => {
   
-  return fetchWithBaseUrl<createAppResponse>(getCreateAppUrl(slug),
+  return fetchWithBaseUrl<createProjectResponse>(getCreateProjectUrl(slug),
   {      
     ...options,
     method: 'POST',
@@ -59,18 +59,18 @@ export const createApp = async (slug: ProjectSlug,
 /**
  * Create a new project
  */
-export type deleteAppResponse204 = {
+export type deleteProjectResponse204 = {
   data: void
   status: 204
 }
     
-export type deleteAppResponseComposite = deleteAppResponse204;
+export type deleteProjectResponseComposite = deleteProjectResponse204;
     
-export type deleteAppResponse = deleteAppResponseComposite & {
+export type deleteProjectResponse = deleteProjectResponseComposite & {
   headers: Headers;
 }
 
-export const getDeleteAppUrl = (slug: ProjectSlug,) => {
+export const getDeleteProjectUrl = (slug: ProjectSlug,) => {
 
 
   
@@ -78,9 +78,9 @@ export const getDeleteAppUrl = (slug: ProjectSlug,) => {
   return `/api/v3/projects/${slug}`
 }
 
-export const deleteApp = async (slug: ProjectSlug, options?: RequestInit): Promise<deleteAppResponse> => {
+export const deleteProject = async (slug: ProjectSlug, options?: RequestInit): Promise<deleteProjectResponse> => {
   
-  return fetchWithBaseUrl<deleteAppResponse>(getDeleteAppUrl(slug),
+  return fetchWithBaseUrl<deleteProjectResponse>(getDeleteProjectUrl(slug),
   {      
     ...options,
     method: 'DELETE'
@@ -93,18 +93,18 @@ export const deleteApp = async (slug: ProjectSlug, options?: RequestInit): Promi
 /**
  * Create a new project
  */
-export type updateAppResponse204 = {
+export type updateProjectResponse204 = {
   data: void
   status: 204
 }
     
-export type updateAppResponseComposite = updateAppResponse204;
+export type updateProjectResponseComposite = updateProjectResponse204;
     
-export type updateAppResponse = updateAppResponseComposite & {
+export type updateProjectResponse = updateProjectResponseComposite & {
   headers: Headers;
 }
 
-export const getUpdateAppUrl = (slug: ProjectSlug,) => {
+export const getUpdateProjectUrl = (slug: ProjectSlug,) => {
 
 
   
@@ -112,10 +112,10 @@ export const getUpdateAppUrl = (slug: ProjectSlug,) => {
   return `/api/v3/projects/${slug}`
 }
 
-export const updateApp = async (slug: ProjectSlug,
-    projectPropsPartial: ProjectPropsPartial, options?: RequestInit): Promise<updateAppResponse> => {
+export const updateProject = async (slug: ProjectSlug,
+    projectPropsPartial: ProjectPropsPartial, options?: RequestInit): Promise<updateProjectResponse> => {
   
-  return fetchWithBaseUrl<updateAppResponse>(getUpdateAppUrl(slug),
+  return fetchWithBaseUrl<updateProjectResponse>(getUpdateProjectUrl(slug),
   {      
     ...options,
     method: 'PATCH',
@@ -350,25 +350,25 @@ export const changeDraftAppMetadata = async (slug: string,
 
 
 /**
- * Get App details of the draft version of the project
+ * Get Project details of the draft version of the project
  */
-export type getDraftAppResponse200 = {
+export type getDraftProjectResponse200 = {
   data: Project
   status: 200
 }
 
-export type getDraftAppResponse404 = {
-  data: GetDraftApp404
+export type getDraftProjectResponse404 = {
+  data: GetDraftProject404
   status: 404
 }
     
-export type getDraftAppResponseComposite = getDraftAppResponse200 | getDraftAppResponse404;
+export type getDraftProjectResponseComposite = getDraftProjectResponse200 | getDraftProjectResponse404;
     
-export type getDraftAppResponse = getDraftAppResponseComposite & {
+export type getDraftProjectResponse = getDraftProjectResponseComposite & {
   headers: Headers;
 }
 
-export const getGetDraftAppUrl = (slug: string,) => {
+export const getGetDraftProjectUrl = (slug: string,) => {
 
 
   
@@ -376,9 +376,9 @@ export const getGetDraftAppUrl = (slug: string,) => {
   return `/api/v3/projects/${slug}/draft`
 }
 
-export const getDraftApp = async (slug: string, options?: RequestInit): Promise<getDraftAppResponse> => {
+export const getDraftProject = async (slug: string, options?: RequestInit): Promise<getDraftProjectResponse> => {
   
-  return fetchWithBaseUrl<getDraftAppResponse>(getGetDraftAppUrl(slug),
+  return fetchWithBaseUrl<getDraftProjectResponse>(getGetDraftProjectUrl(slug),
   {      
     ...options,
     method: 'GET'

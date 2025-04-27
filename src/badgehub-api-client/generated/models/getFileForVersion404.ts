@@ -6,9 +6,6 @@
  * OpenAPI spec version: 3
  */
 
-export type GetAppsParams = {
-pageStart?: number;
-pageLength?: number;
-category?: string;
-device?: string;
+export type GetFileForVersion404 = {
+  reason: string;
 };

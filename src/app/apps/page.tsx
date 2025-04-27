@@ -5,11 +5,11 @@ import { SessionProvider, useSession } from "next-auth/react";
 import { LoginButton } from "@/components/LoginButton";
 import { useEffect, useState } from "react";
 import {
-  getAppsResponse,
+  getProjectsResponse,
   getCategoriesResponse,
   getDevicesResponse,
 } from "@/badgehub-api-client/generated/swagger/public/public";
-import { getAppData } from "../actions";
+import { getProjectData } from "../actions";
 
 export interface SearchParams {
   category: string;
@@ -23,13 +23,13 @@ export default function Listing({
 }) {
   const { data: session } = useSession();
   const [data, setData] = useState<
-    [getAppsResponse, getCategoriesResponse, getDevicesResponse] | null
+    [getProjectsResponse, getCategoriesResponse, getDevicesResponse] | null
   >(null);
 
   useEffect(() => {
     async function getData() {
       const token = (session as any)?.accessToken;
-      const data = await getAppData(searchParams, token);
+      const data = await getProjectData(searchParams, token);
       setData(data);
     }
 

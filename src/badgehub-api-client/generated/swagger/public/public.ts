@@ -8,11 +8,11 @@
 import type {
   Badge,
   Category,
-  GetApp404,
-  GetAppVersion404,
-  GetAppsParams,
   GetFileForVersion404,
   GetLatestPublishedFile404,
+  GetProject404,
+  GetProjectVersion404,
+  GetProjectsParams,
   PickProjectExcludeKeyofProjectVersion,
   Project,
   RevisionNumber
@@ -91,18 +91,18 @@ export const getCategories = async ( options?: RequestInit): Promise<getCategori
 /**
  * Get list of projects, optionally limited by page start/length and/or filtered by categorySlug
  */
-export type getAppsResponse200 = {
+export type getProjectsResponse200 = {
   data: PickProjectExcludeKeyofProjectVersion[]
   status: 200
 }
     
-export type getAppsResponseComposite = getAppsResponse200;
+export type getProjectsResponseComposite = getProjectsResponse200;
     
-export type getAppsResponse = getAppsResponseComposite & {
+export type getProjectsResponse = getProjectsResponseComposite & {
   headers: Headers;
 }
 
-export const getGetAppsUrl = (params?: GetAppsParams,) => {
+export const getGetProjectsUrl = (params?: GetProjectsParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -117,9 +117,9 @@ export const getGetAppsUrl = (params?: GetAppsParams,) => {
   return stringifiedParams.length > 0 ? `/api/v3/projects?${stringifiedParams}` : `/api/v3/projects`
 }
 
-export const getApps = async (params?: GetAppsParams, options?: RequestInit): Promise<getAppsResponse> => {
+export const getProjects = async (params?: GetProjectsParams, options?: RequestInit): Promise<getProjectsResponse> => {
   
-  return fetchWithBaseUrl<getAppsResponse>(getGetAppsUrl(params),
+  return fetchWithBaseUrl<getProjectsResponse>(getGetProjectsUrl(params),
   {      
     ...options,
     method: 'GET'
@@ -132,23 +132,23 @@ export const getApps = async (params?: GetAppsParams, options?: RequestInit): Pr
 /**
  * Get project details for a specific published revision of the project
  */
-export type getAppVersionResponse200 = {
+export type getProjectVersionResponse200 = {
   data: Project
   status: 200
 }
 
-export type getAppVersionResponse404 = {
-  data: GetAppVersion404
+export type getProjectVersionResponse404 = {
+  data: GetProjectVersion404
   status: 404
 }
     
-export type getAppVersionResponseComposite = getAppVersionResponse200 | getAppVersionResponse404;
+export type getProjectVersionResponseComposite = getProjectVersionResponse200 | getProjectVersionResponse404;
     
-export type getAppVersionResponse = getAppVersionResponseComposite & {
+export type getProjectVersionResponse = getProjectVersionResponseComposite & {
   headers: Headers;
 }
 
-export const getGetAppVersionUrl = (slug: string,
+export const getGetProjectVersionUrl = (slug: string,
     revision: RevisionNumber,) => {
 
 
@@ -157,10 +157,10 @@ export const getGetAppVersionUrl = (slug: string,
   return `/api/v3/projects/${slug}/rev${revision}`
 }
 
-export const getAppVersion = async (slug: string,
-    revision: RevisionNumber, options?: RequestInit): Promise<getAppVersionResponse> => {
+export const getProjectVersion = async (slug: string,
+    revision: RevisionNumber, options?: RequestInit): Promise<getProjectVersionResponse> => {
   
-  return fetchWithBaseUrl<getAppVersionResponse>(getGetAppVersionUrl(slug,revision),
+  return fetchWithBaseUrl<getProjectVersionResponse>(getGetProjectVersionUrl(slug,revision),
   {      
     ...options,
     method: 'GET'
@@ -173,23 +173,23 @@ export const getAppVersion = async (slug: string,
 /**
  * Get project details of the latest published version
  */
-export type getAppResponse200 = {
+export type getProjectResponse200 = {
   data: Project
   status: 200
 }
 
-export type getAppResponse404 = {
-  data: GetApp404
+export type getProjectResponse404 = {
+  data: GetProject404
   status: 404
 }
     
-export type getAppResponseComposite = getAppResponse200 | getAppResponse404;
+export type getProjectResponseComposite = getProjectResponse200 | getProjectResponse404;
     
-export type getAppResponse = getAppResponseComposite & {
+export type getProjectResponse = getProjectResponseComposite & {
   headers: Headers;
 }
 
-export const getGetAppUrl = (slug: string,) => {
+export const getGetProjectUrl = (slug: string,) => {
 
 
   
@@ -197,9 +197,9 @@ export const getGetAppUrl = (slug: string,) => {
   return `/api/v3/projects/${slug}`
 }
 
-export const getApp = async (slug: string, options?: RequestInit): Promise<getAppResponse> => {
+export const getProject = async (slug: string, options?: RequestInit): Promise<getProjectResponse> => {
   
-  return fetchWithBaseUrl<getAppResponse>(getGetAppUrl(slug),
+  return fetchWithBaseUrl<getProjectResponse>(getGetProjectUrl(slug),
   {      
     ...options,
     method: 'GET'

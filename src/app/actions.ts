@@ -1,13 +1,16 @@
 "use server";
 
-import { GetAppsParams } from "@/badgehub-api-client/generated/models";
+import { GetProjectsParams } from "@/badgehub-api-client/generated/models";
 import {
-  getApps,
+  getProjects,
   getCategories,
   getDevices,
 } from "@/badgehub-api-client/generated/swagger/public/public";
 
-export async function getAppData(searchParams: GetAppsParams, token: string) {
+export async function getProjectData(
+  searchParams: GetProjectsParams,
+  token: string,
+) {
   const headers = new Headers({
     Authorization: `Bearer ${token}`,
   });
@@ -15,7 +18,7 @@ export async function getAppData(searchParams: GetAppsParams, token: string) {
     headers,
   };
   return Promise.all([
-    getApps(searchParams, options),
+    getProjects(searchParams, options),
     getCategories(options),
     getDevices(options),
   ]);
