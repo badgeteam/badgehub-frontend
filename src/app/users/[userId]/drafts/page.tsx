@@ -4,12 +4,9 @@ import styles from "./drafts.module.css";
 export default async function AppPage({
   params,
 }: {
-  params: { userId: string };
+  params: { userId: number };
 }) {
   const response = await getUserDraftProjects(params.userId);
-  if (response.status === 404) {
-    return <p>No draft apps found for user {params.userId}</p>;
-  }
 
   const apps = response.data;
   return (
