@@ -1,18 +1,19 @@
+"use client";
+import { useEffect, useState } from "react";
 import { getUserDraftProjects } from "@/badgehub-api-client/generated/swagger/private/private";
 import styles from "./drafts.module.css";
+import { Project } from "@/badgehub-api-client/generated/models";
 
-export default async function AppPage({
-  params,
-}: {
-  params: { userId: number };
-}) {
-  const response = await getUserDraftProjects(params.userId);
+export default function AppPage({ params }: { params: { userId: number } }) {
+  const [apps, setApps] = useState<Project[] | undefined>(undefined);
+  useEffect(() => {
+    getUserDraftProjects(params.userId).then((r) => setApps(r.data));
+  }, [params.userId]);
 
-  const apps = response.data;
   return (
     <article>
       <h2>{params.userId} Draft Projects</h2>
-      <a className={styles.createDraftLink} href={"/create-project"}>
+      <a className={styles.underlined} href={"/create-project"}>
         Create Project
       </a>
       <ul>
@@ -20,6 +21,9 @@ export default async function AppPage({
           <li key={app.slug}>
             <h3>{app.name}</h3>
             <p>{app.description}</p>
+            <a className={styles.underlined} href={`/apps/${app.slug}/edit`}>
+              edit
+            </a>
           </li>
         ))}
       </ul>
