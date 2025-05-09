@@ -6,6 +6,7 @@ import {
   getDraftProject,
   getDraftProjectResponse200,
   publishVersion,
+  writeDraftFile,
 } from "@/badgehub-api-client/generated/swagger/private/private";
 import { Project, ProjectSlug } from "@/badgehub-api-client/generated/models";
 
@@ -43,6 +44,20 @@ export default function EditProjectPage() {
     await changeDraftAppMetadata(slug, projectUpdates);
     setProjectCacheBuster({});
   };
+
+  const uploadFile = async () => {
+    const fileInput = document.getElementById(
+      "fileUploadField",
+    ) as HTMLInputElement;
+    const files = fileInput.files;
+    if (!files || files.length === 0) return;
+    const file = files[0];
+    await writeDraftFile(slug, file.name, {
+      file,
+    });
+    setProjectCacheBuster({});
+  };
+
   return (
     <main>
       <h1>Edit Project {slug}</h1>
@@ -70,6 +85,18 @@ export default function EditProjectPage() {
       </div>
       <button onClick={onClickSave}>Save</button>
       <button onClick={onClickPublish}>Publish</button>
+      <div id={"files"}>
+        <p>Files</p>
+        <p>Here you can add files to your project.</p>
+        <p>current Files</p>
+        <pre>
+          {projectDetails
+            ? JSON.stringify(projectDetails.version?.files, null, 2)
+            : "LOADING"}
+        </pre>
+        <input id={"fileUploadField"} type="file" />
+        <button onClick={uploadFile}>Upload</button>
+      </div>
     </main>
   );
 }
