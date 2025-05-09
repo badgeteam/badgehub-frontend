@@ -5,11 +5,12 @@ import {
   changeDraftAppMetadata,
   getDraftProject,
   getDraftProjectResponse200,
+  publishVersion,
 } from "@/badgehub-api-client/generated/swagger/private/private";
 import { Project, ProjectSlug } from "@/badgehub-api-client/generated/models";
 
 export default function EditProjectPage() {
-  const { slug } = useParams();
+  const { slug } = useParams() as { slug: ProjectSlug };
   const [projectDetails, setProjectDetails] = useState<
     getDraftProjectResponse200["data"] | undefined
   >(undefined);
@@ -32,9 +33,14 @@ export default function EditProjectPage() {
       return { ...prev, [key]: value };
     });
   };
+  const onClickPublish = async () => {
+    if (!projectUpdates) return;
+    await publishVersion(slug);
+    setProjectCacheBuster({});
+  };
   const onClickSave = async () => {
     if (!projectUpdates) return;
-    await changeDraftAppMetadata(slug as ProjectSlug, projectUpdates);
+    await changeDraftAppMetadata(slug, projectUpdates);
     setProjectCacheBuster({});
   };
   return (
@@ -45,6 +51,7 @@ export default function EditProjectPage() {
           ? JSON.stringify({
               name: projectDetails.name,
               description: projectDetails.description,
+              revision: projectDetails.revision,
             })
           : "LOADING"}
       </pre>
@@ -62,6 +69,7 @@ export default function EditProjectPage() {
         <input id={"description"} onInput={onInput} />
       </div>
       <button onClick={onClickSave}>Save</button>
+      <button onClick={onClickPublish}>Publish</button>
     </main>
   );
 }
