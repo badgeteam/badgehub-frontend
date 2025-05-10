@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import AuthTest from "@/components/AuthTest";
 
 export function Account() {
   const { data: session, status } = useSession();
@@ -20,6 +21,7 @@ export function Account() {
   return (
     <>
       <h1>Account</h1>
+      <AuthTest />
       <p>JWT: {(session as any)?.accessToken}</p>
       {html}
     </>
