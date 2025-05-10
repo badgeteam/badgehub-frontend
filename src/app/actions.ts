@@ -5,6 +5,7 @@ import {
   getProjects,
   getCategories,
   getDevices,
+  getPrivate,
 } from "@/badgehub-api-client/generated/swagger/public/public";
 
 export async function getProjectData(
@@ -22,4 +23,14 @@ export async function getProjectData(
     getCategories(options),
     getDevices(options),
   ]);
+}
+
+export async function getPrivateData(token: string) {
+  const headers = new Headers({
+    Authorization: `Bearer ${token}`,
+  });
+  const options: RequestInit = {
+    headers,
+  };
+  return getPrivate(options);
 }

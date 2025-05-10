@@ -14,6 +14,8 @@ export * from './category';
 export * from './dbInsertAppMetadataJSONPartial';
 export * from './dbInsertAppMetadataJSONPartialFileMappingsItem';
 export * from './fileMetadata';
+export * from './forbiddenError';
+export * from './forbiddenErrorStatus';
 export * from './getDraftFile404';
 export * from './getDraftProject404';
 export * from './getFileForVersion404';
