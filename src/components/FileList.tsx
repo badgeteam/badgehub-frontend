@@ -10,7 +10,7 @@ export const FileList: FunctionComponent<{
   files?: FileMetadata[];
   projectSlug: ProjectSlug;
   revisionAlias: "draft" | "latest";
-  onClickDelete: (file: FileMetadata) => unknown;
+  onClickDelete?: (file: FileMetadata) => unknown;
 }> = ({ files, projectSlug, revisionAlias, onClickDelete }) => {
   const [apiBaseUrl, setApiBaseUrl] = useState<string | undefined>();
   useEffect(() => {

@@ -1,11 +1,9 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   changeDraftAppMetadata,
   deleteDraftFile,
-  getDraftProject,
-  getDraftProjectResponse200,
   publishVersion,
   writeDraftFile,
 } from "@/badgehub-api-client/generated/swagger/private/private";
@@ -17,23 +15,12 @@ import {
 
 import styles from "./edit.module.css";
 import { FileList } from "@/components/FileList";
+import { useProject } from "@/hooks/useProject";
 
 export default function EditProjectPage() {
   const { slug: projectSlug } = useParams() as { slug: ProjectSlug };
-  const [projectDetails, setProjectDetails] = useState<
-    getDraftProjectResponse200["data"] | undefined
-  >(undefined);
-  const [projectCacheBuster, setProjectCacheBuster] = useState({});
-  const triggerUpdate = () => setProjectCacheBuster({});
+  const { projectDetails, triggerUpdate } = useProject(projectSlug);
   const [projectUpdates, setProjectUpdates] = useState<Partial<Project>>({});
-  useEffect(() => {
-    getDraftProject(projectSlug as string).then((r) => {
-      if (r.status !== 200) {
-        throw new Error("Failed to fetch project details");
-      }
-      setProjectDetails(r.data);
-    });
-  }, [projectSlug, projectCacheBuster]);
 
   if (!projectDetails) {
     return <main>Loading...</main>;
