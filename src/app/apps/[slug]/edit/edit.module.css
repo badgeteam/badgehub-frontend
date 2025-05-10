@@ -1,0 +1,16 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+
+}
+
+.row > p {
+    margin-right: 1rem;
+}
+
+.row > button {
+    margin-right: 1rem;
+}

@@ -3,12 +3,23 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   changeDraftAppMetadata,
+  deleteDraftFile,
   getDraftProject,
   getDraftProjectResponse200,
   publishVersion,
   writeDraftFile,
 } from "@/badgehub-api-client/generated/swagger/private/private";
-import { Project, ProjectSlug } from "@/badgehub-api-client/generated/models";
+import {
+  FileMetadata,
+  Project,
+  ProjectSlug,
+} from "@/badgehub-api-client/generated/models";
+
+import styles from "./edit.module.css";
+
+function downloadFile(file: FileMetadata) {
+  return undefined; // TODO
+}
 
 export default function EditProjectPage() {
   const { slug } = useParams() as { slug: ProjectSlug };
@@ -16,6 +27,7 @@ export default function EditProjectPage() {
     getDraftProjectResponse200["data"] | undefined
   >(undefined);
   const [projectCacheBuster, setProjectCacheBuster] = useState({});
+  const triggerUpdate = () => setProjectCacheBuster({});
   const [projectUpdates, setProjectUpdates] = useState<Partial<Project>>({});
   useEffect(() => {
     getDraftProject(slug as string).then((r) => {
@@ -25,6 +37,10 @@ export default function EditProjectPage() {
       setProjectDetails(r.data);
     });
   }, [slug, projectCacheBuster]);
+  if (!projectDetails) {
+    return <main>Loading...</main>;
+  }
+
   const onInput = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     const key = target.id;
@@ -35,14 +51,16 @@ export default function EditProjectPage() {
     });
   };
   const onClickPublish = async () => {
-    if (!projectUpdates) return;
+    if (Object.keys(projectUpdates).length) {
+      await changeDraftAppMetadata(slug, projectUpdates);
+    }
     await publishVersion(slug);
-    setProjectCacheBuster({});
+    triggerUpdate();
   };
   const onClickSave = async () => {
-    if (!projectUpdates) return;
+    if (!Object.keys(projectUpdates).length) return;
     await changeDraftAppMetadata(slug, projectUpdates);
-    setProjectCacheBuster({});
+    triggerUpdate();
   };
 
   const uploadFile = async () => {
@@ -55,13 +73,20 @@ export default function EditProjectPage() {
     await writeDraftFile(slug, file.name, {
       file,
     });
-    setProjectCacheBuster({});
+    triggerUpdate();
   };
 
-  const files = projectDetails?.version?.files;
-  if (!projectDetails) {
-    return <main>Loading...</main>;
+  async function deleteFile(file: FileMetadata) {
+    await deleteDraftFile(slug, encodeURIComponent(file.full_path));
+    triggerUpdate();
   }
+
+  const overWritableProps = [
+    "name",
+    "description",
+    "license",
+  ] as const satisfies (keyof Project)[];
+  const files = projectDetails?.version?.files;
   return (
     <main>
       <h1>Edit Project {slug}</h1>
@@ -77,23 +102,40 @@ export default function EditProjectPage() {
         Here you can edit the project. You can add badges, and change the
         settings.
       </p>
-      <div>
-        <p>name</p>
-        <input id={"name"} onInput={onInput} />
+      {overWritableProps.map((propKey) => {
+        return (
+          <div className={styles.row} key={propKey}>
+            <p>{propKey}</p>
+            <input id={propKey} onInput={onInput} />
+          </div>
+        );
+      })}
+      <div className={styles.row}>
+        <button onClick={onClickSave}>Save</button>
+        <button onClick={onClickPublish}>Publish</button>
       </div>
-      <div>
-        <p>description</p>
-        <input id={"description"} onInput={onInput} />
-      </div>
-      <button onClick={onClickSave}>Save</button>
-      <button onClick={onClickPublish}>Publish</button>
       <div id={"files"}>
         <p>Files</p>
         <p>Here you can add files to your project.</p>
         <p>current Files</p>
-        <pre>{JSON.stringify(files, null, 2)}</pre>
-        <input id={"fileUploadField"} type="file" />
-        <button onClick={uploadFile}>Upload</button>
+        <div id={"fileList"}>
+          {files &&
+            files.map((file) => {
+              return (
+                <div className={styles.row} key={file.full_path}>
+                  <p>name: {file.full_path}</p>
+                  <button onClick={() => downloadFile(file)}>download</button>
+                  {file.full_path === "metadata.json" ? null : (
+                    <button onClick={() => deleteFile(file)}>delete</button>
+                  )}
+                </div>
+              );
+            })}
+        </div>
+        <div className={styles.row}>
+          <input id={"fileUploadField"} type="file" />
+          <button onClick={uploadFile}>Upload</button>
+        </div>
       </div>
     </main>
   );
