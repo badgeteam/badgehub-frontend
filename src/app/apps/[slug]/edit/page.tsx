@@ -16,10 +16,10 @@ import {
 } from "@/badgehub-api-client/generated/models";
 
 import styles from "./edit.module.css";
-import { getApiBaseUrl } from "@/fetch-from-api";
+import { FileList } from "@/components/FileList";
 
 export default function EditProjectPage() {
-  const { slug } = useParams() as { slug: ProjectSlug };
+  const { slug: projectSlug } = useParams() as { slug: ProjectSlug };
   const [projectDetails, setProjectDetails] = useState<
     getDraftProjectResponse200["data"] | undefined
   >(undefined);
@@ -27,19 +27,15 @@ export default function EditProjectPage() {
   const triggerUpdate = () => setProjectCacheBuster({});
   const [projectUpdates, setProjectUpdates] = useState<Partial<Project>>({});
   useEffect(() => {
-    getDraftProject(slug as string).then((r) => {
+    getDraftProject(projectSlug as string).then((r) => {
       if (r.status !== 200) {
         throw new Error("Failed to fetch project details");
       }
       setProjectDetails(r.data);
     });
-  }, [slug, projectCacheBuster]);
-  const [apiBaseUrl, setApiBaseUrl] = useState<string | undefined>();
-  useEffect(() => {
-    getApiBaseUrl().then(setApiBaseUrl);
-  }, []);
+  }, [projectSlug, projectCacheBuster]);
 
-  if (!projectDetails || !apiBaseUrl) {
+  if (!projectDetails) {
     return <main>Loading...</main>;
   }
 
@@ -54,14 +50,14 @@ export default function EditProjectPage() {
   };
   const onClickPublish = async () => {
     if (Object.keys(projectUpdates).length) {
-      await changeDraftAppMetadata(slug, projectUpdates);
+      await changeDraftAppMetadata(projectSlug, projectUpdates);
     }
-    await publishVersion(slug);
+    await publishVersion(projectSlug);
     triggerUpdate();
   };
   const onClickSave = async () => {
     if (!Object.keys(projectUpdates).length) return;
-    await changeDraftAppMetadata(slug, projectUpdates);
+    await changeDraftAppMetadata(projectSlug, projectUpdates);
     triggerUpdate();
   };
 
@@ -72,14 +68,14 @@ export default function EditProjectPage() {
     const files = fileInput.files;
     if (!files || files.length === 0) return;
     const file = files[0];
-    await writeDraftFile(slug, file.name, {
+    await writeDraftFile(projectSlug, file.name, {
       file,
     });
     triggerUpdate();
   };
 
   async function deleteFile(file: FileMetadata) {
-    await deleteDraftFile(slug, encodeURIComponent(file.full_path));
+    await deleteDraftFile(projectSlug, encodeURIComponent(file.full_path));
     triggerUpdate();
   }
 
@@ -91,7 +87,7 @@ export default function EditProjectPage() {
   const files = projectDetails?.version?.files;
   return (
     <main>
-      <h1>Edit Project {slug}</h1>
+      <h1>Edit Project {projectSlug}</h1>
       <pre>
         {JSON.stringify({
           name: projectDetails.name,
@@ -120,25 +116,12 @@ export default function EditProjectPage() {
         <p>Files</p>
         <p>Here you can add files to your project.</p>
         <p>current Files</p>
-        <div id={"fileList"}>
-          {files &&
-            files.map((file) => {
-              return (
-                <div className={styles.row} key={file.full_path}>
-                  <p>name:</p>
-                  <a
-                    href={`${apiBaseUrl}/api/v3/projects/${slug}/draft/files/${encodeURIComponent(file.full_path)}`}
-                    download
-                  >
-                    {file.full_path}
-                  </a>
-                  {file.full_path === "metadata.json" ? null : (
-                    <button onClick={() => deleteFile(file)}>delete</button>
-                  )}
-                </div>
-              );
-            })}
-        </div>
+        <FileList
+          files={files}
+          revisionAlias={"draft"}
+          projectSlug={projectSlug}
+          onClickDelete={deleteFile}
+        />
         <div className={styles.row}>
           <input id={"fileUploadField"} type="file" />
           <button onClick={uploadFile}>Upload</button>
