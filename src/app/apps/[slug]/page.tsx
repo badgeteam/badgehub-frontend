@@ -1,28 +1,31 @@
-import { getProject } from "@/badgehub-api-client/generated/swagger/public/public";
+"use client";
+import { FileList } from "@/components/FileList";
+import { useProject } from "@/hooks/useProject";
 
-export default async function AppPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const response = await getProject(params.slug);
-  if (response.status === 404) {
+export default function AppPage({ params }: { params: { slug: string } }) {
+  const { projectDetails } = useProject(params.slug);
+  if (!projectDetails) {
     return <p>App {params.slug} not found</p>;
   }
 
-  const app = response.data;
   return (
     <article>
-      <h2>{app.name}</h2>
-      <p>Author: {app.user_name}</p>
-      <p>Category: {app.category}</p>
-      {app.description}
+      <h2>{projectDetails.name}</h2>
+      <p>Author: {projectDetails.user_name}</p>
+      <p>Category: {projectDetails.category}</p>
+      {projectDetails.description}
       <h3>Supported Devices:</h3>
       <ul>
-        {app.badges?.map((device) => (
+        {projectDetails.badges?.map((device) => (
           <li key={device}>{JSON.stringify(device, null, 2)}</li>
         ))}
       </ul>
+      <h3>Files:</h3>
+      <FileList
+        projectSlug={projectDetails.slug}
+        revisionAlias={"latest"}
+        files={projectDetails.version?.files}
+      />
     </article>
   );
 }

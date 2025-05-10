@@ -10,11 +10,15 @@ const getBody = <T>(c: Response | Request): Promise<T> => {
   return c.text() as Promise<T>;
 };
 
-const baseUrl =
+const apiBaseUrl =
   process.env.BADGEHUB_API_BASEURL || "https://badgehub-api.p1m.nl/";
 const getUrl = (contextUrl: string): string => {
-  return baseUrl + contextUrl;
+  return apiBaseUrl + contextUrl;
 };
+
+export async function getApiBaseUrl(): Promise<string> {
+  return apiBaseUrl;
+}
 
 export const fetchWithBaseUrl = async <T>(
   url: string,
