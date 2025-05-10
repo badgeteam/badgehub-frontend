@@ -13,7 +13,7 @@ import {
   ProjectSlug,
 } from "@/badgehub-api-client/generated/models";
 
-import styles from "./edit.module.css";
+import styles from "@/styles/row.module.css";
 import { FileList } from "@/components/FileList";
 import { useProject } from "@/hooks/useProject";
 

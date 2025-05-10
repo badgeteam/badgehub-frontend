@@ -4,7 +4,7 @@ import {
   ProjectSlug,
 } from "@/badgehub-api-client/generated/models";
 import { getApiBaseUrl } from "@/fetch-from-api";
-import styles from "@/app/apps/[slug]/edit/edit.module.css";
+import styles from "@/styles/row.module.css";
 
 export const FileList: FunctionComponent<{
   files?: FileMetadata[];
