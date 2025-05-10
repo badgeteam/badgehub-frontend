@@ -16,10 +16,7 @@ import {
 } from "@/badgehub-api-client/generated/models";
 
 import styles from "./edit.module.css";
-
-function downloadFile(file: FileMetadata) {
-  return undefined; // TODO
-}
+import { getApiBaseUrl } from "@/fetch-from-api";
 
 export default function EditProjectPage() {
   const { slug } = useParams() as { slug: ProjectSlug };
@@ -37,7 +34,12 @@ export default function EditProjectPage() {
       setProjectDetails(r.data);
     });
   }, [slug, projectCacheBuster]);
-  if (!projectDetails) {
+  const [apiBaseUrl, setApiBaseUrl] = useState<string | undefined>();
+  useEffect(() => {
+    getApiBaseUrl().then(setApiBaseUrl);
+  }, []);
+
+  if (!projectDetails || !apiBaseUrl) {
     return <main>Loading...</main>;
   }
 
@@ -123,8 +125,13 @@ export default function EditProjectPage() {
             files.map((file) => {
               return (
                 <div className={styles.row} key={file.full_path}>
-                  <p>name: {file.full_path}</p>
-                  <button onClick={() => downloadFile(file)}>download</button>
+                  <p>name:</p>
+                  <a
+                    href={`${apiBaseUrl}/api/v3/projects/${slug}/draft/files/${encodeURIComponent(file.full_path)}`}
+                    download
+                  >
+                    {file.full_path}
+                  </a>
                   {file.full_path === "metadata.json" ? null : (
                     <button onClick={() => deleteFile(file)}>delete</button>
                   )}
