@@ -58,17 +58,19 @@ export default function EditProjectPage() {
     setProjectCacheBuster({});
   };
 
+  const files = projectDetails?.version?.files;
+  if (!projectDetails) {
+    return <main>Loading...</main>;
+  }
   return (
     <main>
       <h1>Edit Project {slug}</h1>
       <pre>
-        {projectDetails
-          ? JSON.stringify({
-              name: projectDetails.name,
-              description: projectDetails.description,
-              revision: projectDetails.revision,
-            })
-          : "LOADING"}
+        {JSON.stringify({
+          name: projectDetails.name,
+          description: projectDetails.description,
+          revision: projectDetails.revision,
+        })}
       </pre>
       <pre>updates: {JSON.stringify(projectUpdates)}</pre>
       <p>
@@ -89,11 +91,7 @@ export default function EditProjectPage() {
         <p>Files</p>
         <p>Here you can add files to your project.</p>
         <p>current Files</p>
-        <pre>
-          {projectDetails
-            ? JSON.stringify(projectDetails.version?.files, null, 2)
-            : "LOADING"}
-        </pre>
+        <pre>{JSON.stringify(files, null, 2)}</pre>
         <input id={"fileUploadField"} type="file" />
         <button onClick={uploadFile}>Upload</button>
       </div>
