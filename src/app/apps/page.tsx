@@ -21,20 +21,21 @@ export default function Listing({
 }: {
   searchParams: Partial<SearchParams>;
 }) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [data, setData] = useState<
     [getProjectsResponse, getCategoriesResponse, getDevicesResponse] | null
   >(null);
 
   useEffect(() => {
     async function getData() {
+      if (status === "loading") return;
       const token = (session as any)?.accessToken;
       const data = await getProjectData(searchParams, token);
       setData(data);
     }
 
     getData();
-  }, [searchParams, session]);
+  }, [searchParams, session, status]);
 
   return (
     <>
