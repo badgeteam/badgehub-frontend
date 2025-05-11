@@ -12,7 +12,7 @@ export async function getProjectData(
   token: string,
 ) {
   const headers = new Headers({
-    Authorization: token,
+    Authorization: `Bearer ${token}`,
   });
   const options: RequestInit = {
     headers,
