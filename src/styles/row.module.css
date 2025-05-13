@@ -1,0 +1,19 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border: 1px solid #ccc;
+
+  & > a {
+    text-decoration: underline;
+    margin-right: 1rem;
+  }
+
+  & > p {
+    margin-right: 1rem;
+  }
+
+  & > button {
+    margin-right: 1rem;
+  }
+}
