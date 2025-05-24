@@ -7,11 +7,12 @@ import {
   getProject,
   getProjectResponse,
 } from "@/badgehub-api-client/generated/swagger/public/public";
+import { Project } from "@/badgehub-api-client/generated/models";
 
 export const useProject = (projectSlug: string) => {
-  const [projectDetails, setProjectDetails] = useState<
-    getProjectResponse["data"] | undefined
-  >(undefined);
+  const [projectDetails, setProjectDetails] = useState<Project | undefined>(
+    undefined,
+  );
   const [projectCacheBuster, setProjectCacheBuster] = useState({});
   const triggerUpdate = () => setProjectCacheBuster({});
   useEffect(() => {
