@@ -35,7 +35,7 @@ export default function EditProjectPage() {
       return { ...prev, [key]: value };
     });
   };
-  const onClickPublish = async () => {
+  const onClickSaveAndPublish = async () => {
     if (Object.keys(projectUpdates).length) {
       await changeDraftAppMetadata(projectSlug, projectUpdates);
     }
@@ -96,8 +96,7 @@ export default function EditProjectPage() {
         );
       })}
       <div className={styles.row}>
-        <button onClick={onClickSave}>Save</button>
-        <button onClick={onClickPublish}>Publish</button>
+        <button onClick={onClickSaveAndPublish}>Save & Publish</button>
       </div>
       <div id={"files"}>
         <p>Files</p>
