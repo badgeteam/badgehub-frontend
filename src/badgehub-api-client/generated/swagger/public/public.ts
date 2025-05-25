@@ -8,7 +8,6 @@
 import type {
   Badge,
   Category,
-  ForbiddenError,
   GetFileForVersion404,
   GetLatestPublishedFile404,
   GetProject404,
@@ -20,45 +19,6 @@ import type {
 } from '../../models';
 
 import { fetchWithBaseUrl } from '../../../../fetch-from-api';
-
-/**
- * Only for testing auth endpoint
- */
-export type getPrivateResponse200 = {
-  data: string
-  status: 200
-}
-
-export type getPrivateResponse403 = {
-  data: ForbiddenError
-  status: 403
-}
-    
-export type getPrivateResponseComposite = getPrivateResponse200 | getPrivateResponse403;
-    
-export type getPrivateResponse = getPrivateResponseComposite & {
-  headers: Headers;
-}
-
-export const getGetPrivateUrl = () => {
-
-
-  
-
-  return `/api/v3/private`
-}
-
-export const getPrivate = async ( options?: RequestInit): Promise<getPrivateResponse> => {
-  
-  return fetchWithBaseUrl<getPrivateResponse>(getGetPrivateUrl(),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-
 
 /**
  * Get list of devices (badges)

@@ -6,9 +6,6 @@
  * OpenAPI spec version: 3
  */
 
-/**
- */
-export enum ForbiddenErrorStatus {
-  Unauthorized= 'Unauthorized',
-
-}
+export type WriteDraftFile404 = {
+  reason: string;
+};

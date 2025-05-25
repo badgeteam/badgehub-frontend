@@ -11,7 +11,7 @@ export default function AppPage({ params }: { params: { slug: string } }) {
   return (
     <article>
       <h2>{projectDetails.name}</h2>
-      <p>Author: {projectDetails.user_name}</p>
+      <p>Author: {projectDetails.idp_user_id}</p>
       <p>Category: {projectDetails.category}</p>
       {projectDetails.description}
       <h3>Supported Devices:</h3>

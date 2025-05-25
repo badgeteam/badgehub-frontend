@@ -10,7 +10,7 @@ import type { Version } from './version';
 
 export interface Project {
   slug: string;
-  user_id: number;
+  idp_user_id: string;
   git?: string;
   allow_team_fixes?: boolean;
   created_at: string;
@@ -24,7 +24,6 @@ export interface Project {
   category: (keyof typeof AppCategoryName);
   description?: string;
   revision?: number;
-  user_name?: string;
   interpreter?: string;
   version?: Version;
   badges?: string[];

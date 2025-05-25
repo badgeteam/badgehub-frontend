@@ -9,7 +9,6 @@
 export interface FileMetadata {
   created_at: string;
   updated_at: string;
-  extension: string;
   dir: string;
   name: string;
   ext: string;

@@ -8,9 +8,7 @@ export default function ProjectPage() {
   const [error, setError] = useState<string | null>(null);
   const saveProject = async () => {
     try {
-      const result = await createProject(slug, {
-        user_id: 0,
-      });
+      const result = await createProject(slug, {});
 
       if (!result.status.toString().startsWith("2")) {
         setError("Failed to create project: code" + result.status);

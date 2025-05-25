@@ -26,7 +26,7 @@ export function AppList({ data }: AppListProps) {
           <Link href={`/categories/${project.category}`}>
             {project.category}
           </Link>
-          <p>{project.user_name}</p>
+          <p>{project.idp_user_id}</p>
         </article>
       ))}
     </>

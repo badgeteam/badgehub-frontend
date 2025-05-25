@@ -4,10 +4,16 @@ import { getUserDraftProjects } from "@/badgehub-api-client/generated/swagger/pr
 import styles from "./drafts.module.css";
 import { Project } from "@/badgehub-api-client/generated/models";
 
-export default function AppPage({ params }: { params: { userId: number } }) {
+export default function AppPage({ params }: { params: { userId: string } }) {
   const [apps, setApps] = useState<Project[] | undefined>(undefined);
   useEffect(() => {
-    getUserDraftProjects(params.userId).then((r) => setApps(r.data));
+    getUserDraftProjects(params.userId).then((r) => {
+      if (r.status !== 200) {
+        console.error("Failed to fetch draft projects:", r);
+        return;
+      }
+      setApps(r.data);
+    });
   }, [params.userId]);
 
   return (
