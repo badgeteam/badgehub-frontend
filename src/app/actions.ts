@@ -7,17 +7,12 @@ import {
   getPrivate,
   getProjects,
 } from "@/badgehub-api-client/generated/swagger/public/public";
-import { getAuthenticatedRequestInit } from "@/app/getAuthenticatedRequestInit";
 
-export async function getProjectData(
-  searchParams: GetProjectsParams,
-  token: string,
-) {
-  const options = getAuthenticatedRequestInit(token);
+export async function getProjectData(searchParams: GetProjectsParams) {
   return Promise.all([
-    getProjects(searchParams, options),
-    getCategories(options),
-    getDevices(options),
+    getProjects(searchParams),
+    getCategories(),
+    getDevices(),
   ]);
 }
 

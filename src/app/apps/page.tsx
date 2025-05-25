@@ -30,7 +30,7 @@ export default function Listing({
   useEffect(() => {
     async function getData() {
       if (status === "loading") return;
-      const data = await getProjectData(searchParams, token);
+      const data = await getProjectData(searchParams);
       setData(data);
     }
 

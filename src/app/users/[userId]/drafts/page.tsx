@@ -8,7 +8,9 @@ import { useAccessToken } from "@/app/hooks/useAccessToken";
 import { SessionProvider } from "next-auth/react";
 
 const AppPageComponent = ({ userId }: { userId: string }) => {
-  const { token } = useAccessToken();
+  const { token, session, decodedToken } = useAccessToken();
+  const userName =
+    decodedToken?.sub === userId ? session?.user?.name : decodedToken?.sub;
   const [apps, setApps] = useState<Project[] | undefined>(undefined);
   useEffect(() => {
     if (!token) {
@@ -27,7 +29,7 @@ const AppPageComponent = ({ userId }: { userId: string }) => {
   // TODO loading state and error handling
   return (
     <article>
-      <h2>{userId} Draft Projects</h2>
+      <h2>{userName} Draft Projects</h2>
       <a className={styles.underlined} href={"/create-project"}>
         Create Project
       </a>
