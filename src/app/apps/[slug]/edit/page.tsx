@@ -51,6 +51,11 @@ export default function EditProjectPage() {
     triggerUpdate();
   };
 
+  const onClickDelete = async () => {
+    await deleteProject(projectSlug, getAuthenticatedRequestInit(token));
+    triggerUpdate();
+  };
+
   const uploadFile = async () => {
     const fileInput = document.getElementById(
       "fileUploadField",
@@ -104,6 +109,7 @@ export default function EditProjectPage() {
         );
       })}
       <div className={styles.row}>
+        <button onClick={onClickDelete}>Delete</button>
         <button onClick={onClickSaveAndPublish}>Save & Publish</button>
       </div>
       <div id={"files"}>
