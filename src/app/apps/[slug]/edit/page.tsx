@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   changeDraftAppMetadata,
   deleteDraftFile,
@@ -19,13 +19,14 @@ import { FileList } from "@/components/FileList";
 import { useDraftProject } from "@/hooks/useProject";
 import { getAuthenticatedRequestInit } from "@/app/getAuthenticatedRequestInit";
 import { useAccessToken } from "@/app/hooks/useAccessToken";
+import editStyles from "./edit.module.css";
 
 export default function EditProjectPage() {
   const { slug: projectSlug } = useParams() as { slug: ProjectSlug };
-  const { token } = useAccessToken();
+  const { token, decodedToken } = useAccessToken();
   const { projectDetails, triggerUpdate } = useDraftProject(projectSlug, token);
   const [projectUpdates, setProjectUpdates] = useState<Partial<Project>>({});
-
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
   if (!projectDetails || !token) {
     return <main>Loading...</main>;
   }
@@ -51,9 +52,15 @@ export default function EditProjectPage() {
     triggerUpdate();
   };
 
-  const onClickDelete = async () => {
+  const onConfirmDelete = async () => {
     await deleteProject(projectSlug, getAuthenticatedRequestInit(token));
-    triggerUpdate();
+    document.location = `/users/${decodedToken?.sub}/drafts`;
+  };
+  const onDismissDelete = async () => {
+    dialogRef?.current?.close();
+  };
+  const onClickDeleteButton = () => {
+    dialogRef?.current?.show();
   };
 
   const uploadFile = async () => {
@@ -86,47 +93,54 @@ export default function EditProjectPage() {
   ] as const satisfies (keyof Project)[];
   const files = projectDetails?.version?.files;
   return (
-    <main>
-      <h1>Edit Project {projectSlug}</h1>
-      <pre>
-        {JSON.stringify({
-          name: projectDetails.name,
-          description: projectDetails.description,
-          revision: projectDetails.revision,
+    <>
+      <dialog className={editStyles.closeDialog} ref={dialogRef}>
+        <p>Are you sure you want to delete the project [{projectSlug}]?</p>
+        <button onClick={onDismissDelete}>Cancel</button>
+        <button onClick={onConfirmDelete}>OK</button>
+      </dialog>
+      <main>
+        <h1>Edit Project {projectSlug}</h1>
+        <pre>
+          {JSON.stringify({
+            name: projectDetails.name,
+            description: projectDetails.description,
+            revision: projectDetails.revision,
+          })}
+        </pre>
+        <pre>updates: {JSON.stringify(projectUpdates)}</pre>
+        <p>
+          Here you can edit the project. You can add badges, and change the
+          settings.
+        </p>
+        {overWritableProps.map((propKey) => {
+          return (
+            <div className={styles.row} key={propKey}>
+              <p>{propKey}</p>
+              <input id={propKey} onInput={onInput} />
+            </div>
+          );
         })}
-      </pre>
-      <pre>updates: {JSON.stringify(projectUpdates)}</pre>
-      <p>
-        Here you can edit the project. You can add badges, and change the
-        settings.
-      </p>
-      {overWritableProps.map((propKey) => {
-        return (
-          <div className={styles.row} key={propKey}>
-            <p>{propKey}</p>
-            <input id={propKey} onInput={onInput} />
-          </div>
-        );
-      })}
-      <div className={styles.row}>
-        <button onClick={onClickDelete}>Delete</button>
-        <button onClick={onClickSaveAndPublish}>Save & Publish</button>
-      </div>
-      <div id={"files"}>
-        <p>Files</p>
-        <p>Here you can add files to your project.</p>
-        <p>current Files</p>
-        <FileList
-          files={files}
-          revisionAlias={"draft"}
-          projectSlug={projectSlug}
-          onClickDelete={deleteFile}
-        />
         <div className={styles.row}>
-          <input id={"fileUploadField"} type="file" />
-          <button onClick={uploadFile}>Upload</button>
+          <button onClick={onClickDeleteButton}>Delete</button>
+          <button onClick={onClickSaveAndPublish}>Save & Publish</button>
         </div>
-      </div>
-    </main>
+        <div id={"files"}>
+          <p>Files</p>
+          <p>Here you can add files to your project.</p>
+          <p>current Files</p>
+          <FileList
+            files={files}
+            revisionAlias={"draft"}
+            projectSlug={projectSlug}
+            onClickDelete={deleteFile}
+          />
+          <div className={styles.row}>
+            <input id={"fileUploadField"} type="file" />
+            <button onClick={uploadFile}>Upload</button>
+          </div>
+        </div>
+      </main>
+    </>
   );
 }
