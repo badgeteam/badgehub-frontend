@@ -1,15 +1,15 @@
 "use client";
 
 import { AppList } from "@/components/AppList";
-import { SessionProvider, useSession } from "next-auth/react";
 import { LoginButton } from "@/components/LoginButton";
 import { useEffect, useState } from "react";
 import {
-  getProjectsResponse,
   getCategoriesResponse,
   getDevicesResponse,
+  getProjectsResponse,
 } from "@/badgehub-api-client/generated/swagger/public/public";
 import { getProjectData } from "../actions";
+import { useAccessToken } from "@/app/hooks/useAccessToken";
 
 export interface SearchParams {
   category: string;
@@ -21,7 +21,8 @@ export default function Listing({
 }: {
   searchParams: Partial<SearchParams>;
 }) {
-  const { data: session, status } = useSession();
+  const { status, token } = useAccessToken();
+
   const [data, setData] = useState<
     [getProjectsResponse, getCategoriesResponse, getDevicesResponse] | null
   >(null);
@@ -29,13 +30,12 @@ export default function Listing({
   useEffect(() => {
     async function getData() {
       if (status === "loading") return;
-      const token = (session as any)?.accessToken;
       const data = await getProjectData(searchParams, token);
       setData(data);
     }
 
     getData();
-  }, [searchParams, session, status]);
+  }, [searchParams, status, token]);
 
   return (
     <>

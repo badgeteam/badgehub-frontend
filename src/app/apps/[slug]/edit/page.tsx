@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   changeDraftAppMetadata,
   deleteDraftFile,
+  deleteProject,
   publishVersion,
   writeDraftFile,
 } from "@/badgehub-api-client/generated/swagger/private/private";
@@ -15,14 +16,17 @@ import {
 
 import styles from "@/styles/row.module.css";
 import { FileList } from "@/components/FileList";
-import { useProject } from "@/hooks/useProject";
+import { useDraftProject } from "@/hooks/useProject";
+import { getAuthenticatedRequestInit } from "@/app/getAuthenticatedRequestInit";
+import { useAccessToken } from "@/app/hooks/useAccessToken";
 
 export default function EditProjectPage() {
   const { slug: projectSlug } = useParams() as { slug: ProjectSlug };
-  const { projectDetails, triggerUpdate } = useProject(projectSlug);
+  const { token } = useAccessToken();
+  const { projectDetails, triggerUpdate } = useDraftProject(projectSlug, token);
   const [projectUpdates, setProjectUpdates] = useState<Partial<Project>>({});
 
-  if (!projectDetails) {
+  if (!projectDetails || !token) {
     return <main>Loading...</main>;
   }
 
@@ -37,14 +41,13 @@ export default function EditProjectPage() {
   };
   const onClickSaveAndPublish = async () => {
     if (Object.keys(projectUpdates).length) {
-      await changeDraftAppMetadata(projectSlug, projectUpdates);
+      await changeDraftAppMetadata(
+        projectSlug,
+        projectUpdates,
+        getAuthenticatedRequestInit(token),
+      );
     }
-    await publishVersion(projectSlug);
-    triggerUpdate();
-  };
-  const onClickSave = async () => {
-    if (!Object.keys(projectUpdates).length) return;
-    await changeDraftAppMetadata(projectSlug, projectUpdates);
+    await publishVersion(projectSlug, getAuthenticatedRequestInit(token));
     triggerUpdate();
   };
 
@@ -55,9 +58,14 @@ export default function EditProjectPage() {
     const files = fileInput.files;
     if (!files || files.length === 0) return;
     const file = files[0];
-    await writeDraftFile(projectSlug, file.name, {
-      file,
-    });
+    await writeDraftFile(
+      projectSlug,
+      file.name,
+      {
+        file,
+      },
+      getAuthenticatedRequestInit(token),
+    );
     triggerUpdate();
   };
 

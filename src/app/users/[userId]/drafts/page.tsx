@@ -3,22 +3,31 @@ import { useEffect, useState } from "react";
 import { getUserDraftProjects } from "@/badgehub-api-client/generated/swagger/private/private";
 import styles from "./drafts.module.css";
 import { Project } from "@/badgehub-api-client/generated/models";
+import { getAuthenticatedRequestInit } from "@/app/getAuthenticatedRequestInit";
+import { useAccessToken } from "@/app/hooks/useAccessToken";
+import { SessionProvider } from "next-auth/react";
 
-export default function AppPage({ params }: { params: { userId: string } }) {
+const AppPageComponent = ({ userId }: { userId: string }) => {
+  const { token } = useAccessToken();
   const [apps, setApps] = useState<Project[] | undefined>(undefined);
   useEffect(() => {
-    getUserDraftProjects(params.userId).then((r) => {
-      if (r.status !== 200) {
-        console.error("Failed to fetch draft projects:", r);
-        return;
-      }
-      setApps(r.data);
-    });
-  }, [params.userId]);
-
+    if (!token) {
+      return;
+    }
+    getUserDraftProjects(userId, {}, getAuthenticatedRequestInit(token)).then(
+      (r) => {
+        if (r.status !== 200) {
+          console.error("Failed to fetch draft projects:", r);
+          return;
+        }
+        setApps(r.data);
+      },
+    );
+  }, [token, userId]);
+  // TODO loading state and error handling
   return (
     <article>
-      <h2>{params.userId} Draft Projects</h2>
+      <h2>{userId} Draft Projects</h2>
       <a className={styles.underlined} href={"/create-project"}>
         Create Project
       </a>
@@ -34,5 +43,13 @@ export default function AppPage({ params }: { params: { userId: string } }) {
         ))}
       </ul>
     </article>
+  );
+};
+
+export default function AppPage({ params }: { params: { userId: string } }) {
+  return (
+    <SessionProvider>
+      <AppPageComponent userId={params.userId} />
+    </SessionProvider>
   );
 }

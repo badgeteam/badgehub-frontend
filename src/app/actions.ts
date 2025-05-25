@@ -2,22 +2,18 @@
 
 import { GetProjectsParams } from "@/badgehub-api-client/generated/models";
 import {
-  getProjects,
   getCategories,
   getDevices,
   getPrivate,
+  getProjects,
 } from "@/badgehub-api-client/generated/swagger/public/public";
+import { getAuthenticatedRequestInit } from "@/app/getAuthenticatedRequestInit";
 
 export async function getProjectData(
   searchParams: GetProjectsParams,
   token: string,
 ) {
-  const headers = new Headers({
-    Authorization: `Bearer ${token}`,
-  });
-  const options: RequestInit = {
-    headers,
-  };
+  const options = getAuthenticatedRequestInit(token);
   return Promise.all([
     getProjects(searchParams, options),
     getCategories(options),
