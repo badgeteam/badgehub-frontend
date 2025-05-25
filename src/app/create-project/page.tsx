@@ -11,7 +11,9 @@ export default function ProjectPage() {
       const result = await createProject(slug, {});
 
       if (!result.status.toString().startsWith("2")) {
+        console.error("Failed to create project:", result.data);
         setError("Failed to create project: code" + result.status);
+        return;
       }
       document.location = `/apps/${slug}/edit`;
     } catch (error) {
