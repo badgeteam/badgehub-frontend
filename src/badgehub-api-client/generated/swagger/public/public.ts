@@ -10,15 +10,56 @@ import type {
   Category,
   GetFileForVersion404,
   GetLatestPublishedFile404,
+  GetPrivate200,
   GetProject404,
   GetProjectVersion404,
   GetProjectsParams,
+  JwtError,
   PickProjectExcludeKeyofProjectVersion,
   Project,
   RevisionNumber
 } from '../../models';
 
 import { fetchWithBaseUrl } from '../../../../fetch-from-api';
+
+/**
+ * Only for testing auth endpoint
+ */
+export type getPrivateResponse200 = {
+  data: GetPrivate200
+  status: 200
+}
+
+export type getPrivateResponse403 = {
+  data: JwtError
+  status: 403
+}
+    
+export type getPrivateResponseComposite = getPrivateResponse200 | getPrivateResponse403;
+    
+export type getPrivateResponse = getPrivateResponseComposite & {
+  headers: Headers;
+}
+
+export const getGetPrivateUrl = () => {
+
+
+  
+
+  return `/api/v3/private`
+}
+
+export const getPrivate = async ( options?: RequestInit): Promise<getPrivateResponse> => {
+  
+  return fetchWithBaseUrl<getPrivateResponse>(getGetPrivateUrl(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
 
 /**
  * Get list of devices (badges)
