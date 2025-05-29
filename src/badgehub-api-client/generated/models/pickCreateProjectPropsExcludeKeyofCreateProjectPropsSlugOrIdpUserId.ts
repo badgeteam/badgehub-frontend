@@ -9,8 +9,7 @@
 /**
  * From T, pick a set of properties whose keys are in the union K
  */
-export interface PickCreateProjectPropsExcludeKeyofCreateProjectPropsSlug {
-  user_id: number;
+export interface PickCreateProjectPropsExcludeKeyofCreateProjectPropsSlugOrIdpUserId {
   git?: string;
   allow_team_fixes?: boolean;
 }

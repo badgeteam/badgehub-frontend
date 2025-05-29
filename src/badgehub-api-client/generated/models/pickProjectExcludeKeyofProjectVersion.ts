@@ -20,11 +20,10 @@ export interface PickProjectExcludeKeyofProjectVersion {
   category: (keyof typeof AppCategoryName);
   description?: string;
   revision?: number;
-  user_name?: string;
   interpreter?: string;
   badges?: string[];
   slug: string;
-  user_id: number;
+  idp_user_id: string;
   git?: string;
   allow_team_fixes?: boolean;
   created_at: string;

@@ -1,6 +1,6 @@
-import { useSession } from "next-auth/react";
+import { useAccessToken } from "@/app/hooks/useAccessToken";
 
-export function useBadgeHubUserId(): number | undefined | null {
-  const { data: session } = useSession();
-  return session?.user ? 0 : undefined; // TODO user id mapping
+export function useBadgeHubUserId(): string | undefined {
+  const { decodedToken } = useAccessToken();
+  return decodedToken?.sub;
 }

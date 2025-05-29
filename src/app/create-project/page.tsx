@@ -2,18 +2,32 @@
 
 import { createProject } from "@/badgehub-api-client/generated/swagger/private/private";
 import { useState } from "react";
+import { getAuthenticatedRequestInit } from "@/app/getAuthenticatedRequestInit";
+import { useAccessToken } from "@/app/hooks/useAccessToken";
+import { SessionProvider } from "next-auth/react";
 
-export default function ProjectPage() {
+const CreateProject = () => {
+  const { status, token } = useAccessToken();
   const [slug, setSlug] = useState("");
   const [error, setError] = useState<string | null>(null);
+  if (!token) {
+    return <p>You must be logged in to create a project.</p>;
+  }
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
   const saveProject = async () => {
     try {
-      const result = await createProject(slug, {
-        user_id: 0,
-      });
+      const result = await createProject(
+        slug,
+        {},
+        getAuthenticatedRequestInit(token),
+      );
 
       if (!result.status.toString().startsWith("2")) {
+        console.error("Failed to create project:", result.data);
         setError("Failed to create project: code" + result.status);
+        return;
       }
       document.location = `/apps/${slug}/edit`;
     } catch (error) {
@@ -35,5 +49,13 @@ export default function ProjectPage() {
       />
       <button onClick={saveProject}>Save Project</button>
     </main>
+  );
+};
+
+export default function ProjectPage() {
+  return (
+    <SessionProvider>
+      <CreateProject />
+    </SessionProvider>
   );
 }

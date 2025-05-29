@@ -8,12 +8,13 @@
 import type {
   Badge,
   Category,
-  ForbiddenError,
   GetFileForVersion404,
   GetLatestPublishedFile404,
+  GetPrivate200,
   GetProject404,
   GetProjectVersion404,
   GetProjectsParams,
+  JwtError,
   PickProjectExcludeKeyofProjectVersion,
   Project,
   RevisionNumber
@@ -25,12 +26,12 @@ import { fetchWithBaseUrl } from '../../../../fetch-from-api';
  * Only for testing auth endpoint
  */
 export type getPrivateResponse200 = {
-  data: string
+  data: GetPrivate200
   status: 200
 }
 
 export type getPrivateResponse403 = {
-  data: ForbiddenError
+  data: JwtError
   status: 403
 }
     
