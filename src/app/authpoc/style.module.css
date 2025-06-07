@@ -1,0 +1,12 @@
+
+.container {
+
+    & button {
+        padding: 5px 10px;
+    }
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 10px;
+}
