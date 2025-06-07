@@ -45,6 +45,13 @@ export function MainNav() {
       <SessionProvider>
         <MyProjectsLink pathname={pathname} />
       </SessionProvider>
+      <Link
+        href={"/authpoc"}
+        className={pathname === "/authpoc" ? styles.currentLink : ""}
+        aria-current={pathname === "/authpoc" ? "page" : "false"}
+      >
+        <h1>Auth POC</h1>
+      </Link>
     </nav>
   );
 }
