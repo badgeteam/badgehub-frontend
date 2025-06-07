@@ -4,6 +4,8 @@ import Keycloak from "keycloak-js";
 import classes from "./style.module.css";
 import { useEffect, useState, useRef } from "react";
 
+// See https://www.keycloak.org/securing-apps/javascript-adapter
+
 export default function AuthPOC() {
   const [keycloak, setKeycloak] = useState<Keycloak | null>(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +14,9 @@ export default function AuthPOC() {
 
   useEffect(() => {
     // Prevent multiple initializations using ref
-    if (initRef.current) return;
+    if (initRef.current) {
+      return;
+    }
     initRef.current = true;
 
     async function initKeycloak() {
